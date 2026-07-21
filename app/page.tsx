@@ -6,17 +6,8 @@ import { type ScriptNode } from "./script-data";
 import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
-
-const visualById: Record<string, { src: string; style2Src: string; alt: string }> = Object.fromEntries(
-  nodes.map((node) => [
-    node.id,
-    {
-      src: `/illustrations/mindmaps/${node.id}.png`,
-      style2Src: `/illustrations/mindmaps-from-text-style2/${node.id}.svg`,
-      alt: `${node.title}口播稿的液态玻璃思维导图`,
-    },
-  ]),
-);
+import { getVisualVersions } from "./visual-data";
+import { PrimaryScriptVisual, VisualPreviewRail } from "./script-visuals";
 
 const keyTerms = [
   "API Key", "API", "Token", "GPU", "Embedding", "Reranker",
@@ -181,6 +172,7 @@ export default function Home() {
   }
 
   if (current) {
+    const currentVisuals = getVisualVersions(current.id);
     const path = pathFor(current);
     const related = branchFor(current);
     const parent = current.parent ? getNode(current.parent) : undefined;
@@ -225,18 +217,8 @@ export default function Home() {
               <button role="tab" aria-selected={detailView === "guide"} onClick={() => setDetailView("guide")}>逐步操作文档</button>
             </div> : null}
             {detailView === "script" || !practicalGuide ? <>
-            <figure className="script-visual">
-              <a className="mindmap-link" href={visualById[current.id].src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}口播思维导图`}>
-                <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
-              </a>
-              <figcaption><span>口播思维导图 · 点击放大</span><b>沿着图中的节点顺序讲述，再对照下方完整文字稿补充细节。</b></figcaption>
-            </figure>
-            <figure className="script-visual style-2-visual">
-              <a className="mindmap-link" href={visualById[current.id].style2Src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}轻薄白雾版口播思维导图`}>
-                <Image src={visualById[current.id].style2Src} alt={`${visualById[current.id].alt}轻薄白雾版`} width={1584} height={990} unoptimized/>
-              </a>
-              <figcaption><span>新版 · 灰粉梦幻玻璃 · 点击放大</span><b>根据本篇口播重新梳理阶段和节点，以线性箭头串联，优先突出文字与关系。</b></figcaption>
-            </figure>
+            <PrimaryScriptVisual title={current.title} visuals={currentVisuals}/>
+            <VisualPreviewRail title={current.title} visuals={currentVisuals} mobile/>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }
             </div>
@@ -245,6 +227,7 @@ export default function Home() {
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">
+            <VisualPreviewRail title={current.title} visuals={currentVisuals}/>
             {resources.length ? <ResourceCards resources={resources}/> : null}
             {practicalGuide ? <GuideRailCard guide={practicalGuide} isOpen={detailView === "guide"} onOpen={toggleGuide}/> : null}
             <div className="rail-heading"><p>{current.level === 1 ? "下一层" : current.level === 2 ? "继续深入" : "同组术语"}</p><h2>{current.level === 1 ? "类别" : "知识节点"}</h2></div>
@@ -254,7 +237,7 @@ export default function Home() {
             <div className="rail-divider"><span>{current.level < 3 ? `第 ${current.level + 1} 层` : "同级切换"}</span></div>
             {related.length ? related.map((item, index) => (
               <button key={item.id} className={`rail-topic ${item.id === current.id ? "active" : ""}`} onClick={() => navigate(item.id)}>
-                <Image src={visualById[item.id].src} alt="" width={86} height={86} unoptimized/><i>{String(index + 1).padStart(2, "0")}</i>
+                <Image src={getVisualVersions(item.id).original} alt="" width={86} height={86} unoptimized/><i>{String(index + 1).padStart(2, "0")}</i>
                 <span><strong>{item.title}</strong><small>{item.duration}</small></span><b>→</b>
               </button>
             )) : <p className="rail-empty">这一层已经讲到底了。</p>}
@@ -277,7 +260,7 @@ export default function Home() {
       <section className="hero">
         <div><p className="eyebrow">SCRIPT WORKSPACE · FIRST LAYER ONLY</p><h1>先选一个主题，<br/><em>再逐层讲明白。</em></h1><p>主页只展示每个独立任务的第一层总览。进入主题后查看第二层分类，再从分类进入相应的第三层术语。</p></div>
         <button className="hero-sculpture glass" onClick={() => latest?.node && navigate(latest.node.id)} aria-label="打开最新上传主题">
-          {latest?.node ? <Image src={visualById[latest.node.id].src} alt={visualById[latest.node.id].alt} width={1584} height={990} priority unoptimized/> : null}
+          {latest?.node ? <Image src={getVisualVersions(latest.node.id).original} alt={`${latest.node.title}口播首图`} width={1584} height={990} priority unoptimized/> : null}
           <span>打开最新主题 <b>→</b></span>
         </button>
       </section>
@@ -296,7 +279,7 @@ export default function Home() {
         </div>
         <div className="card-grid">
           {visible.map(({task,node}) => <button className={`topic-card glass level-card-${node.level}`} key={task.id} onClick={() => navigate(node.id)}>
-            <div className="card-visual"><Image src={visualById[node.id].src} alt={visualById[node.id].alt} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
+            <div className="card-visual"><Image src={getVisualVersions(node.id).original} alt={`${node.title}口播首图`} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
             <div className="card-copy"><p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料 · {task.category === "definition" ? "定义" : "使用 AI"}</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>第一层总览</b><span>进入主题 →</span></footer></div>
           </button>)}
         </div>

@@ -8,7 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "public" / "illustrations" / "mindmap-text-only-blueprints.json"
 OUTPUT = ROOT / "public" / "illustrations" / "mindmaps-from-text-style2"
+OUTPUT_3 = ROOT / "public" / "illustrations" / "mindmaps-from-text-style3"
 MANIFEST = ROOT / "public" / "illustrations" / "mindmap-approved-structure.json"
+TEXT_MANIFEST = ROOT / "public" / "illustrations" / "mindmap-text-only-structure.json"
 
 SENTENCE = re.compile(r"[。！？；]\s*")
 ORDER_PREFIX = re.compile(
@@ -332,8 +334,9 @@ def render(record: dict, structure: dict) -> str:
             if compact_card:
                 icon_markup = f'<g transform="translate({center_x} {icon_y}) scale(.66) translate({-center_x} {-icon_y})">{icon_markup}</g>'
             parts.append(icon_markup)
-            if not compact_card:
-                parts.append(text(center_x, card_y + card_h - 16, node["detail"], 15, 580, "#5c5870", "middle"))
+            # The diagram is a speaking cue, not a transcript. Keep only reviewed,
+            # complete node labels here; auto-selected source sentences can attach
+            # to the wrong node and visually compete with the relationship flow.
 
         if len(indices) == 2:
             parts.append(horizontal_arrow(first_x + card_w + 16, card_y + card_h / 2, second_x - 18))
@@ -351,16 +354,69 @@ def render(record: dict, structure: dict) -> str:
     return "".join(parts)
 
 
+def render_style3(record: dict, structure: dict) -> str:
+    nodes, groups = structure["nodes"], structure["groups"]
+    top, bottom = 188, 838
+    step = (bottom - top) / max(1, len(nodes) - 1)
+    parts = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+    <defs>
+      <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfafc"/><stop offset=".52" stop-color="#f6f2f6"/><stop offset="1" stop-color="#eef4f8"/></linearGradient>
+      <linearGradient id="glass3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".94"/><stop offset=".52" stop-color="#f3e8ee" stop-opacity=".76"/><stop offset="1" stop-color="#e5edf4" stop-opacity=".78"/></linearGradient>
+      <linearGradient id="accent3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9a919a"/><stop offset=".5" stop-color="#bd91aa"/><stop offset="1" stop-color="#d3a2bc"/></linearGradient>
+      <filter id="shadow3" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#62586d" flood-opacity=".14"/></filter>
+      <marker id="down3" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="18" refX="16" refY="9" orient="auto"><path d="M0 0L18 9L0 18Z" fill="#bd91aa"/></marker>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#bg3)"/>
+    <ellipse cx="180" cy="120" rx="280" ry="180" fill="#eab7cc" opacity=".10"/>
+    <ellipse cx="1430" cy="820" rx="310" ry="220" fill="#a9cfe2" opacity=".11"/>
+    <text x="90" y="88" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="50" font-weight="900" fill="#172653">{esc(record['title'])}</text>
+    <text x="92" y="132" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="560" fill="#625e70">{esc(record['summary'])}</text>
+    <path d="M800 184 V892" stroke="#d7c8d3" stroke-width="5" stroke-linecap="round"/>''']
+
+    phase_for_node = {}
+    for phase_index, group in enumerate(groups):
+        for node_index in range(group["start"], group["end"]):
+            phase_for_node[node_index] = (phase_index, group["name"])
+
+    last_phase = None
+    for index, node in enumerate(nodes):
+        y = top + index * step
+        phase_index, phase_name = phase_for_node[index]
+        if phase_index != last_phase:
+            parts.append(f'<rect x="70" y="{y-43}" width="210" height="54" rx="27" fill="#fff" fill-opacity=".7" stroke="#dbcbd7" stroke-width="2"/>')
+            parts.append(f'<text x="96" y="{y-9}" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="850" fill="#69566a">阶段 {phase_index+1} · {esc(phase_name)}</text>')
+            last_phase = phase_index
+        card_x = 865 if index % 2 == 0 else 335
+        line_x1 = 817 if index % 2 == 0 else 783
+        line_x2 = card_x if index % 2 == 0 else card_x + 400
+        parts.append(f'<path d="M{line_x1} {y} H{line_x2}" stroke="#bd91aa" stroke-width="5" stroke-linecap="round"/>')
+        parts.append(f'<circle cx="800" cy="{y}" r="18" fill="url(#accent3)" stroke="#fff" stroke-width="4"/>')
+        parts.append(f'<g filter="url(#shadow3)"><rect x="{card_x}" y="{y-48}" width="400" height="96" rx="24" fill="url(#glass3)" stroke="#fff" stroke-width="4"/><rect x="{card_x+6}" y="{y-42}" width="388" height="84" rx="19" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="2"/></g>')
+        parts.append(f'<text x="{card_x+25}" y="{y+10}" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="29" font-weight="900" fill="url(#accent3)">{index+1:02d}</text>')
+        parts.append(f'<text x="{card_x+96}" y="{y+9}" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="25" font-weight="850" fill="#172653">{esc(node["label"])}</text>')
+        if index < len(nodes) - 1:
+            next_y = top + (index + 1) * step
+            parts.append(f'<path d="M800 {y+22} V{next_y-24}" stroke="url(#accent3)" stroke-width="7" stroke-linecap="round" marker-end="url(#down3)"/>')
+
+    parts.append(f'<rect x="330" y="910" width="940" height="54" rx="27" fill="#fff" fill-opacity=".76" stroke="#ddc8d7" stroke-width="2"/>')
+    parts.append(f'<text x="800" y="944" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="820" fill="#172653">{esc(nodes[0]["label"])}  →  {esc(nodes[-1]["label"])}</text>')
+    parts.append('</svg>')
+    return "".join(parts)
+
+
 def main() -> None:
     records = json.loads(SOURCE.read_text(encoding="utf-8"))
     OUTPUT.mkdir(parents=True, exist_ok=True)
+    OUTPUT_3.mkdir(parents=True, exist_ok=True)
     manifest = []
     for record in records:
         structure = structure_for(record)
         (OUTPUT / f'{record["id"]}.svg').write_text(render(record, structure), encoding="utf-8")
+        (OUTPUT_3 / f'{record["id"]}.svg').write_text(render_style3(record, structure), encoding="utf-8")
         manifest.append({"id": record["id"], "title": record["title"], **structure})
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Rendered {len(records)} approved grey-pink diagrams")
+    TEXT_MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Rendered {len(records)} approved grey-pink and white-frosted diagrams")
 
 
 if __name__ == "__main__":

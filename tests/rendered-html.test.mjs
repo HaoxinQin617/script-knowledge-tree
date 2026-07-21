@@ -39,17 +39,25 @@ test("keeps original, style 2, and style 3 visuals plus one reproducible prompt 
   await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-style3/${id}.png`, import.meta.url))));
 });
 
-test("renders style 2 and style 3 directly below the original", async () => {
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /mindmaps-from-text-style2/);
-  assert.match(page, /mindmaps-from-text-style3/);
-  assert.match(page, /样式 2/);
-  assert.match(page, /样式 3/);
-  const originalIndex = page.indexOf('className="script-visual"');
-  const style2Index = page.indexOf('className="script-visual style-2-visual"');
-  const style3Index = page.indexOf('className="script-visual style-3-visual"');
-  assert.ok(style2Index > originalIndex);
-  assert.ok(style3Index > style2Index);
+test("keeps one primary visual and places exactly two new previews outside the article flow", async () => {
+  const [page, components, visualData, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/script-visuals.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/visual-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(page, /PrimaryScriptVisual/);
+  assert.match(page, /VisualPreviewRail/);
+  assert.doesNotMatch(page, /style-2-visual|style-3-visual/);
+  assert.match(components, /const previews = \[/);
+  assert.equal((components.match(/label: "新版[二三]"/g) ?? []).length, 2);
+  assert.match(components, /aria-modal="true"/);
+  assert.match(components, /event\.key === "Escape"/);
+  assert.match(visualData, /original:/);
+  assert.match(visualData, /version2:/);
+  assert.match(visualData, /version3:/);
+  assert.match(css, /\.mobile-visual-previews/);
+  assert.match(css, /scroll-snap-type:x mandatory/);
 });
 
 test("generates replacement diagrams from text-only blueprints", async () => {
