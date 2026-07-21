@@ -75,6 +75,9 @@ test("adds a Codex installation topic with a practical guide", async () => {
   assert.match(tasks, /codex-china-overview/);
   assert.match(page, /GuideDocument/);
   assert.match(page, /逐步操作文档/);
+  assert.match(page, /GuideRailCard/);
+  assert.match(page, /level-back-button/);
+  assert.match(page, /parent\?\.id \?\? null/);
   assert.match(guide, /npm install -g @openai\/codex/);
   assert.match(guide, /learn\.chatgpt\.com\/docs\/codex\/cli/);
   await Promise.all([

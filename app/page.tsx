@@ -102,6 +102,18 @@ function GuideDocument({ guide }: { guide: PracticalGuide }) {
   );
 }
 
+function GuideRailCard({ guide, isOpen, onOpen }: { guide: PracticalGuide; isOpen: boolean; onOpen: () => void }) {
+  return (
+    <section className="guide-rail-card" aria-label="本篇配套操作文档">
+      <div className="guide-rail-label"><span>配套文档</span><b>{guide.steps.length} 个步骤</b></div>
+      <h2>{guide.title}</h2>
+      <ol>{guide.steps.slice(0, 5).map((step) => <li key={step.number}><i>{step.number}</i><span>{step.title}</span></li>)}</ol>
+      {guide.steps.length > 5 ? <p>另有 {guide.steps.length - 5} 个检查与排错步骤</p> : null}
+      <button onClick={onOpen}>{isOpen ? "返回口播稿与结构图" : "打开完整操作文档"}<b>→</b></button>
+    </section>
+  );
+}
+
 export default function Home() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -158,6 +170,14 @@ export default function Home() {
     const path = pathFor(current);
     const related = branchFor(current);
     const parent = current.parent ? getNode(current.parent) : undefined;
+    const backLabel = parent ? `返回第 ${parent.level} 层：${parent.title}` : "返回第一层主题库";
+    const toggleGuide = () => {
+      setDetailView((view) => view === "guide" ? "script" : "guide");
+      requestAnimationFrame(() => {
+        document.querySelector("#script-content")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        mainRef.current?.focus({ preventScroll: true });
+      });
+    };
     return (
       <main className="app-shell detail-mode" ref={mainRef} tabIndex={-1}>
         <a className="skip-link" href="#script-content">跳到口播正文</a>
@@ -175,6 +195,7 @@ export default function Home() {
 
         <section className="reader-layout">
           <article className="script-paper glass" id="script-content">
+            <button className="level-back-button" onClick={() => navigate(parent?.id ?? null)}>← {backLabel}</button>
             <div className="reading-progress" aria-label={`当前位于第 ${current.level} 层`}>
               {[1,2,3].map((level) => <span key={level} className={level <= current.level ? "reached" : ""}><i>{level}</i><b>{["总览","类别","术语"][level-1]}</b></span>)}
             </div>
@@ -182,6 +203,7 @@ export default function Home() {
             <p className="eyebrow">{current.duration} · 可直接照稿朗读</p>
             <h1>{current.title}</h1>
             <p className="lead">{current.summary}</p>
+            {practicalGuide ? <button className="mobile-guide-launch" onClick={toggleGuide}><span><b>配套操作文档</b><small>{practicalGuide.steps.length} 个步骤 · 官网截图 · 可复制命令</small></span><strong>{detailView === "guide" ? "返回口播" : "打开文档"} →</strong></button> : null}
             {practicalGuide ? <div className="detail-tabs" role="tablist" aria-label="内容类型">
               <button role="tab" aria-selected={detailView === "script"} onClick={() => setDetailView("script")}>口播稿与结构图</button>
               <button role="tab" aria-selected={detailView === "guide"} onClick={() => setDetailView("guide")}>逐步操作文档</button>
@@ -201,6 +223,7 @@ export default function Home() {
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">
+            {practicalGuide ? <GuideRailCard guide={practicalGuide} isOpen={detailView === "guide"} onOpen={toggleGuide}/> : null}
             <div className="rail-heading"><p>{current.level === 1 ? "下一层" : current.level === 2 ? "继续深入" : "同组术语"}</p><h2>{current.level === 1 ? "类别" : "知识节点"}</h2></div>
             <div className="mini-tree" aria-label="当前路径">
               {path.map((item) => <button className={`mini-node level-node-${item.level}`} key={item.id} onClick={() => navigate(item.id)}><i>{item.level}</i><span>{item.title}</span></button>)}
@@ -212,7 +235,7 @@ export default function Home() {
                 <span><strong>{item.title}</strong><small>{item.duration}</small></span><b>→</b>
               </button>
             )) : <p className="rail-empty">这一层已经讲到底了。</p>}
-            {parent ? <button className="rail-back" onClick={() => navigate(parent.id)}>← 返回上一层：{parent.title}</button> : null}
+            <button className="rail-back" onClick={() => navigate(parent?.id ?? null)}>← {backLabel}</button>
             <button className="rail-library" onClick={() => navigate(null)}>返回全部口播稿</button>
           </aside>
         </section>
