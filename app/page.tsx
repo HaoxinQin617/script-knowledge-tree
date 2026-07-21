@@ -8,8 +8,8 @@ const visualById: Record<string, { src: string; alt: string }> = Object.fromEntr
   nodes.map((node) => [
     node.id,
     {
-      src: `/illustrations/${node.id}.webp`,
-      alt: `${node.title}的液态玻璃概念配图`,
+      src: `/illustrations/mindmaps/${node.id}.png`,
+      alt: `${node.title}口播稿的液态玻璃思维导图`,
     },
   ]),
 );
@@ -133,8 +133,10 @@ export default function Home() {
             <h1>{current.title}</h1>
             <p className="lead">{current.summary}</p>
             <figure className="script-visual">
-              <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
-              <figcaption><span>视觉记忆卡</span><b>{current.summary}</b></figcaption>
+              <a className="mindmap-link" href={visualById[current.id].src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}口播思维导图`}>
+                <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
+              </a>
+              <figcaption><span>口播思维导图 · 点击放大</span><b>沿着图中的节点顺序讲述，再对照下方完整文字稿补充细节。</b></figcaption>
             </figure>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }

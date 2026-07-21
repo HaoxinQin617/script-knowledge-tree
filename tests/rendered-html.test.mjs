@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const ids = ["overview","api","self-host","hybrid","api-term","api-key","token","deployment","gpu","quantization","routing","embedding","reranker"];
@@ -25,9 +25,10 @@ test("renders the spoken-script knowledge tree", async () => {
 });
 
 test("keeps one visual and one reproducible prompt per script", async () => {
-  const promptFiles = await readdir(new URL("../public/illustrations/prompts/", import.meta.url));
-  assert.equal(promptFiles.filter((name) => name.endsWith(".md")).length, ids.length);
-  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/${id}.webp`, import.meta.url))));
+  const manifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/prompts.json", import.meta.url), "utf8"));
+  assert.deepEqual(manifest.items.map((item) => item.id).sort(), [...ids].sort());
+  assert.ok(manifest.items.every((item) => item.outline.length >= 4 && item.prompt.length > 40));
+  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
 });
 
 test("preserves raw script data while emphasis stays in the view", async () => {
