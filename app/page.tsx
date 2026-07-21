@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { type ScriptNode } from "./script-data";
 import { nodes, tasks } from "./task-data";
+import { guideByNode, type PracticalGuide } from "./guide-data";
 
 const visualById: Record<string, { src: string; alt: string }> = Object.fromEntries(
   nodes.map((node) => [
@@ -67,12 +68,47 @@ function branchFor(node: ScriptNode) {
   return nodes.filter((item) => item.parent === node.parent);
 }
 
+function GuideDocument({ guide }: { guide: PracticalGuide }) {
+  return (
+    <section className="practical-guide" aria-label="逐步操作文档">
+      <header className="guide-intro">
+        <p className="eyebrow">STEP-BY-STEP DOCUMENT · 更新于 {guide.updatedAt}</p>
+        <h2>{guide.title}</h2>
+        <p>{guide.intro}</p>
+      </header>
+      <div className="guide-choice-grid">
+        {guide.quickChoice.map((item) => <div key={item.title}><strong>{item.title}</strong><p>{item.text}</p></div>)}
+      </div>
+      <div className="guide-steps">
+        {guide.steps.map((step) => (
+          <article className="guide-step" key={step.number}>
+            <div className="step-number">{step.number}</div>
+            <div className="step-content">
+              <h3>{step.title}</h3>
+              <p>{step.detail}</p>
+              {step.screenshot ? <figure className="official-shot">
+                <Image src={step.screenshot} alt={step.screenshotAlt ?? "官方页面截图"} width={1440} height={1000} unoptimized/>
+                <figcaption><span>官方页面截图</span>{step.officialUrl ? <a href={step.officialUrl} target="_blank" rel="noreferrer">打开对应官网 ↗</a> : null}</figcaption>
+              </figure> : null}
+              {step.commands?.map((command) => <div className="command-block" key={command.label}><div><span>{command.label}</span><button onClick={() => navigator.clipboard.writeText(command.code)}>复制</button></div><pre><code>{command.code}</code></pre></div>)}
+              {step.checks?.length ? <div className="step-checks"><strong>完成检查</strong><ul>{step.checks.map((check) => <li key={check}>{check}</li>)}</ul></div> : null}
+              {step.note ? <aside className="guide-note"><strong>注意</strong><p>{step.note}</p></aside> : null}
+            </div>
+          </article>
+        ))}
+      </div>
+      <footer className="guide-sources"><strong>官方来源</strong>{guide.sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{source.label} ↗</a>)}</footer>
+    </section>
+  );
+}
+
 export default function Home() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [detailView, setDetailView] = useState<"script" | "guide">("script");
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -86,6 +122,7 @@ export default function Home() {
     const nextHash = id ? `#${encodeURIComponent(id)}` : location.pathname;
     history.pushState(null, "", nextHash);
     setSelected(id);
+    setDetailView("script");
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       mainRef.current?.focus({ preventScroll: true });
@@ -93,6 +130,7 @@ export default function Home() {
   };
 
   const current = getNode(selected);
+  const practicalGuide = current ? guideByNode[current.id] : undefined;
   const visible = useMemo(() => tasks
     .filter((task) => dateFilter === "all" || task.dateLabel === dateFilter)
     .sort((a, b) => sortOrder === "newest"
@@ -144,6 +182,11 @@ export default function Home() {
             <p className="eyebrow">{current.duration} · 可直接照稿朗读</p>
             <h1>{current.title}</h1>
             <p className="lead">{current.summary}</p>
+            {practicalGuide ? <div className="detail-tabs" role="tablist" aria-label="内容类型">
+              <button role="tab" aria-selected={detailView === "script"} onClick={() => setDetailView("script")}>口播稿与结构图</button>
+              <button role="tab" aria-selected={detailView === "guide"} onClick={() => setDetailView("guide")}>逐步操作文档</button>
+            </div> : null}
+            {detailView === "script" || !practicalGuide ? <>
             <figure className="script-visual">
               <a className="mindmap-link" href={visualById[current.id].src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}口播思维导图`}>
                 <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
@@ -154,6 +197,7 @@ export default function Home() {
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }
             </div>
             {current.children?.length ? <div className="next-callout"><span>继续拆解</span><strong>下一层还有 {current.children.length} 个主题</strong></div> : null}
+            </> : <GuideDocument guide={practicalGuide}/>} 
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">

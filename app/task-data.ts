@@ -173,9 +173,26 @@ const blackWordsNodes: ScriptNode[] = [
   ]}
 ];
 
-export const nodes: ScriptNode[] = [...apiNodes, ...blackWordsNodes];
+const codexGuideNodes: ScriptNode[] = [
+  {id:"codex-china-overview",level:1,title:"国内安装与使用 Codex",eyebrow:"流程指引",duration:"约 5 分钟",minutes:5,summary:"从桌面应用、命令行和 IDE 三条路线中，选出最适合自己的 Codex 入口。",children:["codex-desktop","codex-cli-guide","codex-ide-guide"],source:"用户上传资料 + OpenAI 官方文档核验",body:[
+    "很多人问国内怎样下载 Codex，第一步不是立刻复制一串命令，而是先分清自己要使用哪一种入口。现在常见的入口有三种：ChatGPT 桌面应用里的 Codex、终端里的 Codex CLI，以及 VS Code 或 Cursor 里的 Codex 扩展。三者使用的是同一类编程助手能力，但操作位置和适合的人不同。",
+    "对第一次接触的人，我更推荐桌面应用。打开 OpenAI 官方的 ChatGPT 桌面应用页面，下载 Windows 或 macOS 版本，安装后用 ChatGPT 账号登录，再从左上角切换到 Codex。它不要求你先认识 Node.js，也不需要先配置 API Key，界面里可以直接选择本地文件夹、新建任务和查看修改。",
+    "如果你已经习惯 PowerShell、终端和项目目录，可以选择 Codex CLI。Windows 上常见的 npm 安装路线是先安装 Node.js 的长期支持版本，确认 node 和 npm 都能显示版本号，再运行 npm install -g @openai/codex。安装完成后进入项目目录，输入 codex，首次启动时选择使用 ChatGPT 登录。",
+    "第三条路线是 IDE 扩展。VS Code、Cursor 和 Windsurf 都可以在编辑器里使用 Codex。安装扩展时要核对发布者是 OpenAI，安装后点击左侧 Codex 图标；如果图标没有出现，就打开命令面板，运行 Codex: Open Codex Sidebar。它的优势是当前打开的文件、选中的代码和修改对比都在同一个界面里。",
+    "所谓国内使用，最容易混在一起的是下载、登录和模型服务这三件事。下载失败时先确认访问的是官方页面；命令安装失败时再检查 Node.js、npm 和网络；登录失败时重新启动官方登录流程。不要一上来同时更换 npm 源、设置系统代理、手动填写 API Key，因为同时改变太多设置，会让问题更难定位。",
+    "选择入口以后，真正的使用流程都很相似：先打开正确的项目文件夹，再给出目标和限制，查看 Codex 读取了哪些文件，确认修改范围，最后运行测试并检查结果。第一次可以先让它只读解释项目，不要修改文件。确认它确实理解了当前目录，再逐步让它完成小范围修改。",
+    "这次除了口播结构图，我还准备了一份逐步操作文档。里面会放官方页面截图、具体入口、每一行命令、正常结果和失败时的排查顺序。口播稿负责讲清楚为什么有三条路线，操作文档负责让你真正照着做完。两种内容配合起来，才不会听懂了概念却卡在第一个按钮。",
+    "最后用一句话收住：先选入口，再完成登录，最后打开项目。想少折腾就用桌面应用，习惯终端就用 CLI，长期在编辑器写代码就用 IDE 扩展。不要把复杂配置当成必经之路，先走通官方提供的最短路线，再根据实际错误逐层处理。"
+  ]},
+  {id:"codex-desktop",level:2,title:"桌面应用路线",eyebrow:"操作路线",duration:"约 5 分钟",minutes:5,parent:"codex-china-overview",summary:"最少命令、最直观，适合第一次安装和需要可视化操作的人。",source:"OpenAI 官方文档",body:["桌面应用是当前最容易理解的入口。进入官方页面，点击 Download for Windows 或对应系统按钮，安装后登录 ChatGPT，再从应用左上角选择 Codex。","它把项目、任务、文件变化和终端放在同一个窗口里。你不需要先记住命令，也不用手动把 API Key 写进环境变量。","第一次打开本地文件夹时，只选择当前项目目录。权限范围越清楚，Codex 越不容易碰到无关文件。","开始使用时先发一条只读指令，让它说明项目用途、目录和启动方式。确认理解正确后，再要求小范围修改。","如果下载按钮无法打开，先检查官网能否正常访问。不要从陌生下载站寻找所谓绿色版，也不要把账号密码交给第三方安装器。","桌面应用适合需要完整界面、经常切换任务、希望直接看文件变化的人。等你熟悉流程后，再决定是否需要 CLI 或 IDE 扩展。"]},
+  {id:"codex-cli-guide",level:2,title:"Codex CLI 路线",eyebrow:"操作路线",duration:"约 5 分钟",minutes:5,parent:"codex-china-overview",summary:"在终端进入项目目录，通过命令启动、检查和自动化 Codex。",source:"OpenAI 官方文档",body:["CLI 就是命令行版本，适合已经习惯 PowerShell、Terminal 和项目路径的人。它最大的特点是流程直接，也容易和脚本、测试以及持续集成结合。","npm 安装路线先要求 Node.js 和 npm 可用。分别运行 node -v 与 npm -v，两个命令都显示版本号后，再安装 @openai/codex。","安装结束后运行 codex --version。若能显示版本号，说明终端已经找到程序。随后用 cd 进入项目目录，再输入 codex。","首次启动选择 Sign in with ChatGPT，浏览器完成授权后回到终端。正常情况下不需要把 API Key 粘贴到命令里。","如果提示找不到 codex，先关闭并重新打开终端，再检查全局安装是否成功。网络失败时记录原始报错，一次只调整一个网络设置。","CLI 适合快速检查仓库、批量改动和重复工作，但它要求你知道自己当前位于哪个目录。每次启动前先确认路径，避免在错误文件夹执行任务。"]},
+  {id:"codex-ide-guide",level:2,title:"IDE 扩展路线",eyebrow:"操作路线",duration:"约 5 分钟",minutes:5,parent:"codex-china-overview",summary:"在 VS Code、Cursor 或 Windsurf 里边看代码边提问和审查修改。",source:"OpenAI 官方文档",body:["IDE 扩展适合日常主要在编辑器里写代码的人。它可以直接利用当前打开的文件、选中的代码和项目上下文。","安装时从官方文档进入扩展页面，或者在编辑器扩展商店搜索 Codex，并核对发布者是 OpenAI。不要安装名称相似的第三方扩展。","安装完成后点击左侧 Codex 图标。如果图标没有显示，就打开命令面板，执行 Codex: Open Codex Sidebar。","登录后先打开项目文件夹，再选中需要解释或修改的代码。提示中写清目标、范围和验收标准，比只说帮我改一下更可靠。","修改完成后在编辑器里查看差异，只保留真正需要的变化。重要任务前后建立 Git 检查点，发现问题可以恢复。","IDE 路线的优势是上下文就在眼前，适合小步修改和即时审查；更长的批量任务则可以切到桌面应用或 CLI。"]}
+];
+
+export const nodes: ScriptNode[] = [...apiNodes, ...blackWordsNodes, ...codexGuideNodes];
 
 export const tasks: TaskMeta[] = [
+  {id:"task-codex-china",rootId:"codex-china-overview",createdAt:"2026-07-21T10:20:00-07:00",dateLabel:"2026-07-21",sourceCount:5,coverPhrase:"国内安装与使用 Codex"},
   {id:"task-ai-blackwords",rootId:"blackwords-overview",createdAt:"2026-07-21T08:35:00-07:00",dateLabel:"2026-07-21",sourceCount:1,coverPhrase:"AI 黑话指南"},
   {id:"task-api-access",rootId:"overview",createdAt:"2026-07-21T07:00:00-07:00",dateLabel:"2026-07-21",sourceCount:4,coverPhrase:"AI 模型接入方式"}
 ];

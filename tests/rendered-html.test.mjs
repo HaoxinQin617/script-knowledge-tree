@@ -65,3 +65,19 @@ test("keeps detail-page mind maps fully visible", async () => {
   assert.match(css, /aspect-ratio:auto!important/);
   assert.match(css, /object-fit:contain!important/);
 });
+
+test("adds a Codex installation topic with a practical guide", async () => {
+  const [page, tasks, guide] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/task-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/guide-data.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(tasks, /codex-china-overview/);
+  assert.match(page, /GuideDocument/);
+  assert.match(page, /逐步操作文档/);
+  assert.match(guide, /npm install -g @openai\/codex/);
+  assert.match(guide, /learn\.chatgpt\.com\/docs\/codex\/cli/);
+  await Promise.all([
+    "codex-china-overview", "codex-desktop", "codex-cli-guide", "codex-ide-guide",
+  ].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+});
