@@ -133,7 +133,7 @@ export default function Home() {
             <h1>{current.title}</h1>
             <p className="lead">{current.summary}</p>
             <figure className="script-visual">
-              <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority/>
+              <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
               <figcaption><span>视觉记忆卡</span><b>{current.summary}</b></figcaption>
             </figure>
             <div className="script-body">
@@ -150,7 +150,7 @@ export default function Home() {
             <div className="rail-divider"><span>{current.level < 3 ? `第 ${current.level + 1} 层` : "同级切换"}</span></div>
             {related.length ? related.map((item, index) => (
               <button key={item.id} className={`rail-topic ${item.id === current.id ? "active" : ""}`} onClick={() => navigate(item.id)}>
-                <Image src={visualById[item.id].src} alt="" width={86} height={86}/><i>{String(index + 1).padStart(2, "0")}</i>
+                <Image src={visualById[item.id].src} alt="" width={86} height={86} unoptimized/><i>{String(index + 1).padStart(2, "0")}</i>
                 <span><strong>{item.title}</strong><small>{item.duration}</small></span><b>→</b>
               </button>
             )) : <p className="rail-empty">这一层已经讲到底了。</p>}
@@ -174,7 +174,7 @@ export default function Home() {
       <section className="hero">
         <div><p className="eyebrow">SCRIPT WORKSPACE · 13 VISUAL STORIES</p><h1>把复杂资料，<br/><em>讲成人人都懂的话。</em></h1><p>每篇口播都有独立视觉记忆卡，从总览到术语，沿着一条清楚的路径逐层理解。</p></div>
         <button className="hero-sculpture glass" onClick={() => navigate("overview")} aria-label="从第一层总览开始">
-          <Image src={visualById.overview.src} alt="三层口播知识树总览" width={1584} height={990} priority/>
+          <Image src={visualById.overview.src} alt="三层口播知识树总览" width={1584} height={990} priority unoptimized/>
           <span>从第一层开始 <b>→</b></span>
         </button>
       </section>
@@ -195,7 +195,7 @@ export default function Home() {
         </div>
         <div className="card-grid">
           {visible.map((node) => <button className={`topic-card glass level-card-${node.level}`} key={node.id} onClick={() => navigate(node.id)}>
-            <div className="card-visual"><Image src={visualById[node.id].src} alt={visualById[node.id].alt} width={792} height={495} priority={node.level === 1}/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
+            <div className="card-visual"><Image src={visualById[node.id].src} alt={visualById[node.id].alt} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
             <div className="card-copy"><p className="card-kicker">{node.eyebrow}</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>视觉口播稿</b><span>打开 →</span></footer></div>
           </button>)}
         </div>
