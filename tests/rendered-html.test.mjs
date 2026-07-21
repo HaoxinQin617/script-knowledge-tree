@@ -57,3 +57,11 @@ test("preserves raw script data while emphasis stays in the view", async () => {
   assert.match(page, /location\.hash/);
   assert.doesNotMatch(data, /<mark|term-mark|paragraph-key/);
 });
+
+test("keeps detail-page mind maps fully visible", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.script-visual \.mindmap-link img/);
+  assert.match(css, /height:auto!important/);
+  assert.match(css, /aspect-ratio:auto!important/);
+  assert.match(css, /object-fit:contain!important/);
+});
