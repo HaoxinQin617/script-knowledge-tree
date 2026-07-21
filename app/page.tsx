@@ -1,21 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { nodes, type Level } from "./script-data";
 
-type Level = 1 | 2 | 3;
-type ScriptNode = {
-  id: string;
-  level: Level;
-  title: string;
-  eyebrow: string;
-  duration: string;
-  summary: string;
-  parent?: string;
-  children?: string[];
-  body: string[];
-};
-
-const nodes: ScriptNode[] = [
+/* Legacy inline content is retained below only as an unreachable source marker.
+   The rendered site uses the fully validated data imported above. */
+const legacyNodes = [
   {
     id: "overview", level: 1, title: "AI 接入的三种方式", eyebrow: "总览手稿", duration: "约 4 分钟",
     summary: "借能力、养能力、组合能力：用一家餐厅讲清 AI 产品怎么选模型。",
