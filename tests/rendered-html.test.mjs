@@ -41,8 +41,8 @@ test("keeps original, style 2, and style 3 visuals plus one reproducible prompt 
 
 test("renders style 2 and style 3 directly below the original", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /mindmaps-style2/);
-  assert.match(page, /mindmaps-style3/);
+  assert.match(page, /mindmaps-from-text-style2/);
+  assert.match(page, /mindmaps-from-text-style3/);
   assert.match(page, /样式 2/);
   assert.match(page, /样式 3/);
   const originalIndex = page.indexOf('className="script-visual"');
@@ -50,6 +50,19 @@ test("renders style 2 and style 3 directly below the original", async () => {
   const style3Index = page.indexOf('className="script-visual style-3-visual"');
   assert.ok(style2Index > originalIndex);
   assert.ok(style3Index > style2Index);
+});
+
+test("generates replacement diagrams from text-only blueprints", async () => {
+  const blueprints = JSON.parse(await readFile(new URL("../public/illustrations/mindmap-text-only-blueprints.json", import.meta.url), "utf8"));
+  const structures = JSON.parse(await readFile(new URL("../public/illustrations/mindmap-text-only-structure.json", import.meta.url), "utf8"));
+  assert.equal(blueprints.length, 40);
+  assert.equal(structures.length, 40);
+  for (const blueprint of blueprints) {
+    assert.equal(blueprint.constraints.input_mode, "text_only");
+    assert.equal("source" in blueprint, false);
+    assert.match(blueprint.targets.style2, /mindmaps-from-text-style2/);
+    assert.match(blueprint.targets.style3, /mindmaps-from-text-style3/);
+  }
 });
 
 test("homepage is a date-sortable first-layer task library", async () => {

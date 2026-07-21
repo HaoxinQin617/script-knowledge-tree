@@ -12,8 +12,8 @@ const visualById: Record<string, { src: string; style2Src: string; style3Src: st
     node.id,
     {
       src: `/illustrations/mindmaps/${node.id}.png`,
-      style2Src: `/illustrations/mindmaps-style2/${node.id}.png`,
-      style3Src: `/illustrations/mindmaps-style3/${node.id}.png`,
+      style2Src: `/illustrations/mindmaps-from-text-style2/${node.id}.svg`,
+      style3Src: `/illustrations/mindmaps-from-text-style3/${node.id}.svg`,
       alt: `${node.title}口播稿的液态玻璃思维导图`,
     },
   ]),
