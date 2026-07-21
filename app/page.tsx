@@ -7,12 +7,13 @@ import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
 
-const visualById: Record<string, { src: string; enhancedSrc: string; alt: string }> = Object.fromEntries(
+const visualById: Record<string, { src: string; style2Src: string; style3Src: string; alt: string }> = Object.fromEntries(
   nodes.map((node) => [
     node.id,
     {
       src: `/illustrations/mindmaps/${node.id}.png`,
-      enhancedSrc: `/illustrations/mindmaps-enhanced/${node.id}.png`,
+      style2Src: `/illustrations/mindmaps-style2/${node.id}.png`,
+      style3Src: `/illustrations/mindmaps-style3/${node.id}.png`,
       alt: `${node.title}口播稿的液态玻璃思维导图`,
     },
   ]),
@@ -231,11 +232,17 @@ export default function Home() {
               </a>
               <figcaption><span>口播思维导图 · 点击放大</span><b>沿着图中的节点顺序讲述，再对照下方完整文字稿补充细节。</b></figcaption>
             </figure>
-            <figure className="script-visual enhanced-visual">
-              <a className="mindmap-link" href={visualById[current.id].enhancedSrc} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}增强版口播思维导图`}>
-                <Image src={visualById[current.id].enhancedSrc} alt={`${visualById[current.id].alt}增强版`} width={1584} height={990} unoptimized/>
+            <figure className="script-visual style-2-visual">
+              <a className="mindmap-link" href={visualById[current.id].style2Src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}轻薄白雾版口播思维导图`}>
+                <Image src={visualById[current.id].style2Src} alt={`${visualById[current.id].alt}轻薄白雾版`} width={1584} height={990} unoptimized/>
               </a>
-              <figcaption><span>新版增强图 · 点击放大</span><b>在保留原图的基础上，增强层级数字、关系线、玻璃渐变与小框图标的辨识度。</b></figcaption>
+              <figcaption><span>样式 2 · 轻薄白雾 · 点击放大</span><b>低饱和粉蓝雾光与白色雾面卡片，优先突出文字和关系。</b></figcaption>
+            </figure>
+            <figure className="script-visual style-3-visual">
+              <a className="mindmap-link" href={visualById[current.id].style3Src} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}厚雾面玻璃版口播思维导图`}>
+                <Image src={visualById[current.id].style3Src} alt={`${visualById[current.id].alt}厚雾面玻璃版`} width={1584} height={990} unoptimized/>
+              </a>
+              <figcaption><span>样式 3 · 厚雾面玻璃 · 点击放大</span><b>更明显的玻璃厚度、柔和折射与粉紫蓝空间层次。</b></figcaption>
             </figure>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }

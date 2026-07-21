@@ -25,23 +25,31 @@ test("renders the spoken-script knowledge tree", async () => {
   assert.match(html, /第三层/);
 });
 
-test("keeps original and enhanced visuals plus one reproducible prompt per script", async () => {
+test("keeps original, style 2, and style 3 visuals plus one reproducible prompt per script", async () => {
   const manifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(manifest.items.map((item) => item.id).sort(), [...ids].sort());
   assert.ok(manifest.items.every((item) => item.outline.length >= 4 && item.prompt.length > 40));
   await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
-  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-enhanced/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-style2/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-style3/${id}.png`, import.meta.url))));
   const blackwordManifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/blackwords-prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(blackwordManifest.items.map((item) => item.id).sort(), [...blackwordIds].sort());
   await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
-  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-enhanced/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-style2/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-style3/${id}.png`, import.meta.url))));
 });
 
-test("renders the enhanced visual directly below the original", async () => {
+test("renders style 2 and style 3 directly below the original", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /mindmaps-enhanced/);
-  assert.match(page, /新版增强图/);
-  assert.ok(page.indexOf('className="script-visual enhanced-visual"') > page.indexOf('className="script-visual"'));
+  assert.match(page, /mindmaps-style2/);
+  assert.match(page, /mindmaps-style3/);
+  assert.match(page, /样式 2/);
+  assert.match(page, /样式 3/);
+  const originalIndex = page.indexOf('className="script-visual"');
+  const style2Index = page.indexOf('className="script-visual style-2-visual"');
+  const style3Index = page.indexOf('className="script-visual style-3-visual"');
+  assert.ok(style2Index > originalIndex);
+  assert.ok(style3Index > style2Index);
 });
 
 test("homepage is a date-sortable first-layer task library", async () => {
