@@ -7,11 +7,12 @@ import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
 
-const visualById: Record<string, { src: string; alt: string }> = Object.fromEntries(
+const visualById: Record<string, { src: string; enhancedSrc: string; alt: string }> = Object.fromEntries(
   nodes.map((node) => [
     node.id,
     {
       src: `/illustrations/mindmaps/${node.id}.png`,
+      enhancedSrc: `/illustrations/mindmaps-enhanced/${node.id}.png`,
       alt: `${node.title}口播稿的液态玻璃思维导图`,
     },
   ]),
@@ -229,6 +230,12 @@ export default function Home() {
                 <Image src={visualById[current.id].src} alt={visualById[current.id].alt} width={1584} height={990} priority unoptimized/>
               </a>
               <figcaption><span>口播思维导图 · 点击放大</span><b>沿着图中的节点顺序讲述，再对照下方完整文字稿补充细节。</b></figcaption>
+            </figure>
+            <figure className="script-visual enhanced-visual">
+              <a className="mindmap-link" href={visualById[current.id].enhancedSrc} target="_blank" rel="noreferrer" aria-label={`放大查看${current.title}增强版口播思维导图`}>
+                <Image src={visualById[current.id].enhancedSrc} alt={`${visualById[current.id].alt}增强版`} width={1584} height={990} unoptimized/>
+              </a>
+              <figcaption><span>新版增强图 · 点击放大</span><b>在保留原图的基础上，增强层级数字、关系线、玻璃渐变与小框图标的辨识度。</b></figcaption>
             </figure>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }

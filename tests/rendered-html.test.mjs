@@ -25,14 +25,23 @@ test("renders the spoken-script knowledge tree", async () => {
   assert.match(html, /第三层/);
 });
 
-test("keeps one visual and one reproducible prompt per script", async () => {
+test("keeps original and enhanced visuals plus one reproducible prompt per script", async () => {
   const manifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(manifest.items.map((item) => item.id).sort(), [...ids].sort());
   assert.ok(manifest.items.every((item) => item.outline.length >= 4 && item.prompt.length > 40));
   await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-enhanced/${id}.png`, import.meta.url))));
   const blackwordManifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/blackwords-prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(blackwordManifest.items.map((item) => item.id).sort(), [...blackwordIds].sort());
   await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-enhanced/${id}.png`, import.meta.url))));
+});
+
+test("renders the enhanced visual directly below the original", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /mindmaps-enhanced/);
+  assert.match(page, /新版增强图/);
+  assert.ok(page.indexOf('className="script-visual enhanced-visual"') > page.indexOf('className="script-visual"'));
 });
 
 test("homepage is a date-sortable first-layer task library", async () => {

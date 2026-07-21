@@ -42,3 +42,8 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# local release archives and preview logs
+/site-release-*.tgz
+/preview.out.log
+/preview.err.log
