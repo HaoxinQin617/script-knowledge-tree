@@ -84,3 +84,25 @@ test("adds a Codex installation topic with a practical guide", async () => {
     "codex-china-overview", "codex-desktop", "codex-cli-guide", "codex-ide-guide",
   ].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
 });
+
+test("adds homepage categories, new definition topics, and official resource rails", async () => {
+  const [page, tasks, resources, rules] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/task-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/resource-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../AGENTS.md", import.meta.url), "utf8"),
+  ]);
+  assert.match(page, /categoryFilter/);
+  assert.match(page, /使用 AI/);
+  assert.match(page, /ResourceCards/);
+  assert.match(tasks, /figma-overview/);
+  assert.match(tasks, /canva-overview/);
+  assert.match(tasks, /figma-canva/);
+  assert.match(tasks, /chunk-explained/);
+  assert.match(tasks, /rerank-explained/);
+  assert.match(tasks, /vector-db-explained/);
+  assert.match(resources, /figma\.com\/design/);
+  assert.match(resources, /canva\.com\/create/);
+  assert.match(rules, /Never use/);
+  await Promise.all(["figma-overview","canva-overview","figma-canva","rag-building-blocks","chunk-explained","rerank-explained","vector-db-explained"].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+});

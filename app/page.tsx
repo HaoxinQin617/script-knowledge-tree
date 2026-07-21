@@ -5,6 +5,7 @@ import Image from "next/image";
 import { type ScriptNode } from "./script-data";
 import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
+import { resourcesByNode, type PageResource } from "./resource-data";
 
 const visualById: Record<string, { src: string; alt: string }> = Object.fromEntries(
   nodes.map((node) => [
@@ -114,9 +115,20 @@ function GuideRailCard({ guide, isOpen, onOpen }: { guide: PracticalGuide; isOpe
   );
 }
 
+function ResourceCards({ resources, compact = false }: { resources: PageResource[]; compact?: boolean }) {
+  return <section className={compact ? "resource-cards mobile-resources" : "resource-cards"} aria-label="官方页面与代表作品">
+    <div className="resource-title"><span>站内截图与代表作</span><b>{resources.length} 份</b></div>
+    {resources.map((resource) => <a href={resource.url} target="_blank" rel="noreferrer" key={resource.url}>
+      <Image src={resource.image} alt={`${resource.title}页面截图`} width={720} height={500} unoptimized/>
+      <strong>{resource.title}</strong><small>{resource.caption}</small><i>打开官网 ↗</i>
+    </a>)}
+  </section>;
+}
+
 export default function Home() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [categoryFilter, setCategoryFilter] = useState<"all" | "definition" | "use-ai">("all");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -145,6 +157,7 @@ export default function Home() {
   const practicalGuide = current ? guideByNode[current.id] : undefined;
   const visible = useMemo(() => tasks
     .filter((task) => dateFilter === "all" || task.dateLabel === dateFilter)
+    .filter((task) => categoryFilter === "all" || task.category === categoryFilter)
     .sort((a, b) => sortOrder === "newest"
       ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
@@ -154,7 +167,7 @@ export default function Home() {
     const normalized = query.trim().toLowerCase();
     const textMatch = !normalized || `${node.title} ${node.summary} ${node.eyebrow}`.toLowerCase().includes(normalized);
     return textMatch;
-  }), [dateFilter, sortOrder, query]);
+  }), [dateFilter, categoryFilter, sortOrder, query]);
 
   const dateOptions = [...new Set(tasks.map((task) => task.dateLabel))].sort().reverse();
   const latest = visible[0] ?? tasks.map((task) => ({task,node:getNode(task.rootId)})).find((entry) => entry.node);
@@ -170,6 +183,7 @@ export default function Home() {
     const path = pathFor(current);
     const related = branchFor(current);
     const parent = current.parent ? getNode(current.parent) : undefined;
+    const resources = resourcesByNode[current.id] ?? [];
     const backLabel = parent ? `返回第 ${parent.level} 层：${parent.title}` : "返回第一层主题库";
     const toggleGuide = () => {
       setDetailView((view) => view === "guide" ? "script" : "guide");
@@ -203,6 +217,7 @@ export default function Home() {
             <p className="eyebrow">{current.duration} · 可直接照稿朗读</p>
             <h1>{current.title}</h1>
             <p className="lead">{current.summary}</p>
+            {resources.length ? <ResourceCards resources={resources} compact/> : null}
             {practicalGuide ? <button className="mobile-guide-launch" onClick={toggleGuide}><span><b>配套操作文档</b><small>{practicalGuide.steps.length} 个步骤 · 官网截图 · 可复制命令</small></span><strong>{detailView === "guide" ? "返回口播" : "打开文档"} →</strong></button> : null}
             {practicalGuide ? <div className="detail-tabs" role="tablist" aria-label="内容类型">
               <button role="tab" aria-selected={detailView === "script"} onClick={() => setDetailView("script")}>口播稿与结构图</button>
@@ -223,6 +238,7 @@ export default function Home() {
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">
+            {resources.length ? <ResourceCards resources={resources}/> : null}
             {practicalGuide ? <GuideRailCard guide={practicalGuide} isOpen={detailView === "guide"} onOpen={toggleGuide}/> : null}
             <div className="rail-heading"><p>{current.level === 1 ? "下一层" : current.level === 2 ? "继续深入" : "同组术语"}</p><h2>{current.level === 1 ? "类别" : "知识节点"}</h2></div>
             <div className="mini-tree" aria-label="当前路径">
@@ -261,6 +277,11 @@ export default function Home() {
       <section className="library glass">
         <div className="library-head">
           <div><p className="eyebrow">独立主题任务库</p><h2>第一层主题</h2></div>
+          <div className="category-filters" role="group" aria-label="按内容类型筛选">
+            <button className={categoryFilter === "all" ? "active" : ""} onClick={() => setCategoryFilter("all")}>全部</button>
+            <button className={categoryFilter === "definition" ? "active" : ""} onClick={() => setCategoryFilter("definition")}>定义</button>
+            <button className={categoryFilter === "use-ai" ? "active" : ""} onClick={() => setCategoryFilter("use-ai")}>使用 AI</button>
+          </div>
           <div className="date-controls">
             <label><span>日期</span><select value={dateFilter} onChange={(event) => setDateFilter(event.target.value)}><option value="all">全部日期</option>{dateOptions.map((date) => <option key={date} value={date}>{date}</option>)}</select></label>
             <label><span>排序</span><select value={sortOrder} onChange={(event) => setSortOrder(event.target.value as "newest" | "oldest")}><option value="newest">最新在前</option><option value="oldest">最早在前</option></select></label>
@@ -269,7 +290,7 @@ export default function Home() {
         <div className="card-grid">
           {visible.map(({task,node}) => <button className={`topic-card glass level-card-${node.level}`} key={task.id} onClick={() => navigate(node.id)}>
             <div className="card-visual"><Image src={visualById[node.id].src} alt={visualById[node.id].alt} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
-            <div className="card-copy"><p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>第一层总览</b><span>进入主题 →</span></footer></div>
+            <div className="card-copy"><p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料 · {task.category === "definition" ? "定义" : "使用 AI"}</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>第一层总览</b><span>进入主题 →</span></footer></div>
           </button>)}
         </div>
         {!visible.length && <div className="empty">没有找到匹配的口播稿。</div>}
