@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { nodes, type Level, type ScriptNode } from "./script-data";
+import { type ScriptNode } from "./script-data";
+import { nodes, tasks } from "./task-data";
 
 const visualById: Record<string, { src: string; alt: string }> = Object.fromEntries(
   nodes.map((node) => [
@@ -16,6 +17,7 @@ const visualById: Record<string, { src: string; alt: string }> = Object.fromEntr
 
 const keyTerms = [
   "API Key", "API", "Token", "GPU", "Embedding", "Reranker",
+  "Agent", "OpenClaw", "Skills", "MCP", "Context 窗口", "RAG", "AIGC", "多模态", "泛化", "抽卡",
   "商业模型", "开源模型", "混合架构", "模型路由", "部署", "量化",
   "输入", "输出", "成本", "数据", "服务器", "用户", "请求", "模型",
 ];
@@ -66,7 +68,8 @@ function branchFor(node: ScriptNode) {
 }
 
 export default function Home() {
-  const [filter, setFilter] = useState<"all" | Level>("all");
+  const [dateFilter, setDateFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -90,12 +93,21 @@ export default function Home() {
   };
 
   const current = getNode(selected);
-  const visible = useMemo(() => nodes.filter((node) => {
-    const levelMatch = filter === "all" || node.level === filter;
+  const visible = useMemo(() => tasks
+    .filter((task) => dateFilter === "all" || task.dateLabel === dateFilter)
+    .sort((a, b) => sortOrder === "newest"
+      ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+    .map((task) => ({ task, node: getNode(task.rootId) }))
+    .filter((entry): entry is { task: typeof tasks[number]; node: ScriptNode } => Boolean(entry.node))
+    .filter(({ node }) => {
     const normalized = query.trim().toLowerCase();
     const textMatch = !normalized || `${node.title} ${node.summary} ${node.eyebrow}`.toLowerCase().includes(normalized);
-    return levelMatch && textMatch;
-  }), [filter, query]);
+    return textMatch;
+  }), [dateFilter, sortOrder, query]);
+
+  const dateOptions = [...new Set(tasks.map((task) => task.dateLabel))].sort().reverse();
+  const latest = visible[0] ?? tasks.map((task) => ({task,node:getNode(task.rootId)})).find((entry) => entry.node);
 
   async function copyScript() {
     if (!current) return;
@@ -164,7 +176,6 @@ export default function Home() {
     );
   }
 
-  const today = new Date().toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
   return (
     <main className="app-shell" ref={mainRef} tabIndex={-1}>
       <div className="aurora a1"/><div className="aurora a2"/><div className="aurora a3"/><div className="noise"/>
@@ -174,31 +185,24 @@ export default function Home() {
         <button className="create-button">＋ 新建解析任务</button>
       </header>
       <section className="hero">
-        <div><p className="eyebrow">SCRIPT WORKSPACE · 13 VISUAL STORIES</p><h1>把复杂资料，<br/><em>讲成人人都懂的话。</em></h1><p>每篇口播都有独立视觉记忆卡，从总览到术语，沿着一条清楚的路径逐层理解。</p></div>
-        <button className="hero-sculpture glass" onClick={() => navigate("overview")} aria-label="从第一层总览开始">
-          <Image src={visualById.overview.src} alt="三层口播知识树总览" width={1584} height={990} priority unoptimized/>
-          <span>从第一层开始 <b>→</b></span>
+        <div><p className="eyebrow">SCRIPT WORKSPACE · FIRST LAYER ONLY</p><h1>先选一个主题，<br/><em>再逐层讲明白。</em></h1><p>主页只展示每个独立任务的第一层总览。进入主题后查看第二层分类，再从分类进入相应的第三层术语。</p></div>
+        <button className="hero-sculpture glass" onClick={() => latest?.node && navigate(latest.node.id)} aria-label="打开最新上传主题">
+          {latest?.node ? <Image src={visualById[latest.node.id].src} alt={visualById[latest.node.id].alt} width={1584} height={990} priority unoptimized/> : null}
+          <span>打开最新主题 <b>→</b></span>
         </button>
       </section>
       <section className="library glass">
         <div className="library-head">
-          <div><p className="eyebrow">今日独立任务</p><h2>{today}</h2></div>
-          <div className="filters" role="group" aria-label="按层级筛选">
-            {[["all","全部"],[1,"第一层"],[2,"第二层"],[3,"第三层"]].map(([value,label]) => <button key={value} className={filter === value ? "active" : ""} aria-pressed={filter === value} onClick={() => setFilter(value as "all" | Level)}>{label}</button>)}
+          <div><p className="eyebrow">独立主题任务库</p><h2>第一层主题</h2></div>
+          <div className="date-controls">
+            <label><span>日期</span><select value={dateFilter} onChange={(event) => setDateFilter(event.target.value)}><option value="all">全部日期</option>{dateOptions.map((date) => <option key={date} value={date}>{date}</option>)}</select></label>
+            <label><span>排序</span><select value={sortOrder} onChange={(event) => setSortOrder(event.target.value as "newest" | "oldest")}><option value="newest">最新在前</option><option value="oldest">最早在前</option></select></label>
           </div>
         </div>
-        <div className="task-title">
-          <div className="date-tile"><b>{new Date().getDate()}</b><span>{new Date().toLocaleDateString("zh-CN",{month:"short"})}</span></div>
-          <div><span>独立任务 · 4 份对话截图</span><h3>AI 产品的三种模型接入方式</h3><p>1 篇总览 · 3 个类别详解 · 9 个术语拆解 · 13 张配套视觉</p></div>
-          <button onClick={() => navigate("overview")}>进入知识树 →</button>
-        </div>
-        <div className="level-map" aria-label="三层知识结构">
-          <span className="active"><i>1</i>总览逻辑</span><b>→</b><span><i>2</i>运行类别</span><b>→</b><span><i>3</i>专业术语</span>
-        </div>
         <div className="card-grid">
-          {visible.map((node) => <button className={`topic-card glass level-card-${node.level}`} key={node.id} onClick={() => navigate(node.id)}>
+          {visible.map(({task,node}) => <button className={`topic-card glass level-card-${node.level}`} key={task.id} onClick={() => navigate(node.id)}>
             <div className="card-visual"><Image src={visualById[node.id].src} alt={visualById[node.id].alt} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
-            <div className="card-copy"><p className="card-kicker">{node.eyebrow}</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>视觉口播稿</b><span>打开 →</span></footer></div>
+            <div className="card-copy"><p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>第一层总览</b><span>进入主题 →</span></footer></div>
           </button>)}
         </div>
         {!visible.length && <div className="empty">没有找到匹配的口播稿。</div>}

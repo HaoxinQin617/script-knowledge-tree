@@ -1,0 +1,21 @@
+{
+  "style": "16:10 浅色液态玻璃口播思维导图；乳白、雾紫、柔粉、冰蓝、薄荷青和奶油黄；大号清晰中文；无人物、Logo、水印、伪文字和长段落。",
+  "items": [
+    {"id":"blackwords-overview","prompt":"AI 黑话指南；三分支：让 AI 动手、模型怎么工作、读懂并生成内容；底部流程：目标→方法→连接→资料→生成→计量。"},
+    {"id":"bw-action","prompt":"让 AI 动手做事；目标→Agent 规划→Skills 给方法→MCP 接工具→执行检查；OpenClaw 操作电脑；安全边界。"},
+    {"id":"bw-model","prompt":"理解模型怎么工作；抽卡、Context 窗口、API、泛化四分支及问题诊断。"},
+    {"id":"bw-content","prompt":"让 AI 读懂并生成内容；多模态→RAG→AIGC→Token 的完整内容链路。"},
+    {"id":"bw-agent","prompt":"Agent 围绕目标办事；目标→计划→行动→观察→调整；工具、状态、确认与停止条件。"},
+    {"id":"bw-openclaw","prompt":"OpenClaw 住在电脑里的 Agent；看屏幕、点按钮、处理文件、保存结果；权限和记录。"},
+    {"id":"bw-skills","prompt":"Skills 是 AI 技能说明书；使用时机、输入、步骤、工具、检查和禁止事项。"},
+    {"id":"bw-mcp","prompt":"MCP 是 AI 与工具的统一接口；声明能力、传参数、执行、返回；文件、数据库、浏览器、设计工具。"},
+    {"id":"bw-gacha","prompt":"抽卡解释概率生成；同提示不同结果；用提示、示例、结构和检查控制随机性。"},
+    {"id":"bw-context","prompt":"Context 窗口是模型工作台；规则、问题、历史、资料和工具结果；超限后的摘要、切片与检索。"},
+    {"id":"bw-api","prompt":"API 是软件服务窗口；用户→后端→模型→答案；地址、格式、身份与错误处理。"},
+    {"id":"bw-generalization","prompt":"泛化是学会一个推出一片；规律、新表达、新问题、新场景；边界测试。"},
+    {"id":"bw-multimodal","prompt":"多模态是 AI 的眼睛耳朵和语言；文字、图片、声音、视频及输入质量。"},
+    {"id":"bw-rag","prompt":"RAG 先找证据再回答；文档切片→索引→提问→检索→生成；来源与漏检风险。"},
+    {"id":"bw-aigc","prompt":"AIGC 是 AI 生成内容；文章、图片、音乐、语音、视频；生成草稿与人工审核。"},
+    {"id":"bw-token","prompt":"Token 是 AI 处理文字的计数单位；输入、输出、费用、窗口限制与内容压缩。"}
+  ]
+}
