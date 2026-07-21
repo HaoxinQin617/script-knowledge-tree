@@ -1,0 +1,4 @@
+interface:
+  display_name: "口播稿时长校验"
+  short_description: "强制核验内容生成来源、实际口播字数与标称分钟数是否一致"
+  default_prompt: "Use $validate-spoken-script-length to generate and verify spoken scripts against their required durations."
