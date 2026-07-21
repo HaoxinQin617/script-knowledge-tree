@@ -77,3 +77,25 @@
 ## 6. 输出要求
 
 先输出可供前端直接使用的结构化 JSON，再生成页面。JSON 至少包含：`taskId`、`createdAt`、`dateLabel`、`coverPhrase`、`sourceCount`、`level`、`title`、`duration`、`summary`、`script`、`parentId`、`childrenIds`。不得只生成静态展示图；所有筛选、搜索、层级按钮、返回和复制交互必须可用。
+
+## 7. 固定载入的设计与配图 Skills
+
+在不改变上述文字生成、资料输入、ChatGPT Work 调用与时长验收规则的前提下，固定载入并按顺序使用：
+
+1. `ui-ux-pro-max`：检查三层以上的信息架构。必须提供面包屑、当前位置高亮、可预测的返回路径、筛选状态保留与移动端渐进披露。
+2. `figma:figma-generate-design`、`figma:figma-use`、`figma:figma-generate-library`：把页面颜色、圆角、模糊、阴影、间距、字号与图片比例整理为可复用设计变量和组件；没有 Figma 文件时仍按同一套 token 组织网页，不得伪称已经写入 Figma。
+3. `baoyu-article-illustrator` + `imagegen`：每一篇口播稿生成一张独立的 16:10 配图。配图由该篇标题、摘要、层级和核心关系决定，统一使用浅色马卡龙液态玻璃风格；尽量无字，禁止水印、Logo 和无关人物。必须保存每张图的独立 prompt，图片与口播稿通过稳定 `node id` 一一对应。
+4. `premium-frontend-ui` + `design-taste-frontend`：建立正文视觉层级。不得改写正文字符串；只在渲染层识别专业名词、关键转折、结论句和安全提醒，通过字重、底纹、间距与段落编号形成轻重变化。
+5. `web-design-guidelines`、`frontend-ui-engineering`、`build-web-apps:react-best-practices`：完成键盘导航、焦点状态、图片替代文本、响应式布局、低动态模式与构建检查。
+
+### 配图与文字重点的结构化输出
+
+每个口播节点在原有字段之外增加：
+
+- `visualPrompt`：可复现的完整配图提示词；
+- `visualSrc`：与节点 id 对应的图片路径；
+- `visualAlt`：准确说明图片表达的概念，不使用“图片”“配图”等空泛文字；
+- `emphasisTerms`：正文中真实出现、值得视觉强调的词；
+- `emphasisSentences`：需要提高视觉权重的原文句子索引。
+
+强调处理只允许包裹原文片段，不得增删、调换或改写原句。配图失败时显示等待生成状态，不得用与内容无关的通用图冒充。
