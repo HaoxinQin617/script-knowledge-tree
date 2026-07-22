@@ -5,8 +5,8 @@ from PIL import Image, ImageChops, ImageEnhance, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "public" / "illustrations" / "mindmaps"
-STYLE_2 = ROOT / "public" / "illustrations" / "mindmaps-style2"
-STYLE_3 = ROOT / "public" / "illustrations" / "mindmaps-style3"
+STYLE_2 = ROOT / "archive" / "legacy-visuals" / "mindmaps-style2"
+STYLE_3 = ROOT / "archive" / "legacy-visuals" / "mindmaps-style3"
 
 
 def radial_glow(size: tuple[int, int], center: tuple[float, float], color: tuple[int, int, int], strength: int) -> Image.Image:

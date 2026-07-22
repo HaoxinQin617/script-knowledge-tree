@@ -43,8 +43,8 @@ def main() -> None:
                         "input_mode": "text_only",
                         "forbidden_reference_directories": [
                             "public/illustrations/mindmaps",
-                            "public/illustrations/mindmaps-style2",
-                            "public/illustrations/mindmaps-style3",
+                            "archive/legacy-visuals/mindmaps-style2",
+                            "archive/legacy-visuals/mindmaps-style3",
                             "public/illustrations/mindmaps-enhanced",
                             "public/illustrations/mindmaps-linear",
                         ],

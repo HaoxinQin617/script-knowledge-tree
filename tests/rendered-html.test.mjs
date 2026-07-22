@@ -30,13 +30,13 @@ test("keeps original, style 2, and style 3 visuals plus one reproducible prompt 
   assert.deepEqual(manifest.items.map((item) => item.id).sort(), [...ids].sort());
   assert.ok(manifest.items.every((item) => item.outline.length >= 4 && item.prompt.length > 40));
   await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
-  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-style2/${id}.png`, import.meta.url))));
-  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps-style3/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style2/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style3/${id}.png`, import.meta.url))));
   const blackwordManifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/blackwords-prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(blackwordManifest.items.map((item) => item.id).sort(), [...blackwordIds].sort());
   await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
-  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-style2/${id}.png`, import.meta.url))));
-  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps-style3/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style2/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style3/${id}.png`, import.meta.url))));
 });
 
 test("keeps one primary visual and places exactly two new previews outside the article flow", async () => {
