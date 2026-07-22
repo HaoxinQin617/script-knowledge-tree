@@ -20,7 +20,19 @@
       "pages": [
         "overview-example-01"
       ],
-      "outline": "./outlines/overview.json"
+      "outline": "./outlines/overview.json",
+      "galleryPages": [
+        {
+          "id": "overview-example-01",
+          "title": "餐厅案例的完整逻辑",
+          "paragraphIndexes": [
+            0,
+            1
+          ],
+          "image": "./illustrations/example-pages/images/overview-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/overview-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "api",
@@ -31,7 +43,27 @@
         "api-example-01",
         "api-example-02"
       ],
-      "outline": "./outlines/api.json"
+      "outline": "./outlines/api.json",
+      "galleryPages": [
+        {
+          "id": "api-example-01",
+          "title": "直接调用商业模型 API案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/api-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/api-example-01.md"
+        },
+        {
+          "id": "api-example-02",
+          "title": "直接调用商业模型 API案例的完整逻辑",
+          "paragraphIndexes": [
+            8
+          ],
+          "image": "./illustrations/example-pages/images/api-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/api-example-02.md"
+        }
+      ]
     },
     {
       "nodeId": "self-host",
@@ -41,7 +73,18 @@
       "pages": [
         "self-host-example-01"
       ],
-      "outline": "./outlines/self-host.json"
+      "outline": "./outlines/self-host.json",
+      "galleryPages": [
+        {
+          "id": "self-host-example-01",
+          "title": "厨房案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/self-host-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/self-host-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "hybrid",
@@ -51,7 +94,18 @@
       "pages": [
         "hybrid-example-01"
       ],
-      "outline": "./outlines/hybrid.json"
+      "outline": "./outlines/hybrid.json",
+      "galleryPages": [
+        {
+          "id": "hybrid-example-01",
+          "title": "医院案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/hybrid-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/hybrid-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "api-term",
@@ -61,7 +115,18 @@
       "pages": [
         "api-term-example-01"
       ],
-      "outline": "./outlines/api-term.json"
+      "outline": "./outlines/api-term.json",
+      "galleryPages": [
+        {
+          "id": "api-term-example-01",
+          "title": "API案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/api-term-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/api-term-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "gpu",
@@ -71,7 +136,18 @@
       "pages": [
         "gpu-example-01"
       ],
-      "outline": "./outlines/gpu.json"
+      "outline": "./outlines/gpu.json",
+      "galleryPages": [
+        {
+          "id": "gpu-example-01",
+          "title": "GPU案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/gpu-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/gpu-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "blackwords-overview",
@@ -81,7 +157,18 @@
       "pages": [
         "blackwords-overview-example-01"
       ],
-      "outline": "./outlines/blackwords-overview.json"
+      "outline": "./outlines/blackwords-overview.json",
+      "galleryPages": [
+        {
+          "id": "blackwords-overview-example-01",
+          "title": "AI 黑话指南案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/blackwords-overview-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/blackwords-overview-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-action",
@@ -93,7 +180,36 @@
         "bw-action-example-02",
         "bw-action-example-03"
       ],
-      "outline": "./outlines/bw-action.json"
+      "outline": "./outlines/bw-action.json",
+      "galleryPages": [
+        {
+          "id": "bw-action-example-01",
+          "title": "会议案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/bw-action-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-action-example-01.md"
+        },
+        {
+          "id": "bw-action-example-02",
+          "title": "网页案例的完整逻辑",
+          "paragraphIndexes": [
+            3
+          ],
+          "image": "./illustrations/example-pages/images/bw-action-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-action-example-02.md"
+        },
+        {
+          "id": "bw-action-example-03",
+          "title": "销售案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-action-example-03.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-action-example-03.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-model",
@@ -104,7 +220,27 @@
         "bw-model-example-01",
         "bw-model-example-02"
       ],
-      "outline": "./outlines/bw-model.json"
+      "outline": "./outlines/bw-model.json",
+      "galleryPages": [
+        {
+          "id": "bw-model-example-01",
+          "title": "理解模型怎么工作案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/bw-model-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-model-example-01.md"
+        },
+        {
+          "id": "bw-model-example-02",
+          "title": "客服案例的完整逻辑",
+          "paragraphIndexes": [
+            7
+          ],
+          "image": "./illustrations/example-pages/images/bw-model-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-model-example-02.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-agent",
@@ -114,7 +250,18 @@
       "pages": [
         "bw-agent-example-01"
       ],
-      "outline": "./outlines/bw-agent.json"
+      "outline": "./outlines/bw-agent.json",
+      "galleryPages": [
+        {
+          "id": "bw-agent-example-01",
+          "title": "网页案例的完整逻辑",
+          "paragraphIndexes": [
+            0
+          ],
+          "image": "./illustrations/example-pages/images/bw-agent-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-agent-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-openclaw",
@@ -125,7 +272,27 @@
         "bw-openclaw-example-01",
         "bw-openclaw-example-02"
       ],
-      "outline": "./outlines/bw-openclaw.json"
+      "outline": "./outlines/bw-openclaw.json",
+      "galleryPages": [
+        {
+          "id": "bw-openclaw-example-01",
+          "title": "OpenClaw案例的完整逻辑",
+          "paragraphIndexes": [
+            4
+          ],
+          "image": "./illustrations/example-pages/images/bw-openclaw-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-openclaw-example-01.md"
+        },
+        {
+          "id": "bw-openclaw-example-02",
+          "title": "OpenClaw案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-openclaw-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-openclaw-example-02.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-skills",
@@ -136,7 +303,27 @@
         "bw-skills-example-01",
         "bw-skills-example-02"
       ],
-      "outline": "./outlines/bw-skills.json"
+      "outline": "./outlines/bw-skills.json",
+      "galleryPages": [
+        {
+          "id": "bw-skills-example-01",
+          "title": "Skills案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/bw-skills-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-skills-example-01.md"
+        },
+        {
+          "id": "bw-skills-example-02",
+          "title": "Skills案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-skills-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-skills-example-02.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-gacha",
@@ -146,7 +333,18 @@
       "pages": [
         "bw-gacha-example-01"
       ],
-      "outline": "./outlines/bw-gacha.json"
+      "outline": "./outlines/bw-gacha.json",
+      "galleryPages": [
+        {
+          "id": "bw-gacha-example-01",
+          "title": "抽卡案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-gacha-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-gacha-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-context",
@@ -156,7 +354,18 @@
       "pages": [
         "bw-context-example-01"
       ],
-      "outline": "./outlines/bw-context.json"
+      "outline": "./outlines/bw-context.json",
+      "galleryPages": [
+        {
+          "id": "bw-context-example-01",
+          "title": "Context 窗口案例的完整逻辑",
+          "paragraphIndexes": [
+            6
+          ],
+          "image": "./illustrations/example-pages/images/bw-context-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-context-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-generalization",
@@ -166,7 +375,18 @@
       "pages": [
         "bw-generalization-example-01"
       ],
-      "outline": "./outlines/bw-generalization.json"
+      "outline": "./outlines/bw-generalization.json",
+      "galleryPages": [
+        {
+          "id": "bw-generalization-example-01",
+          "title": "泛化案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-generalization-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-generalization-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-multimodal",
@@ -177,7 +397,27 @@
         "bw-multimodal-example-01",
         "bw-multimodal-example-02"
       ],
-      "outline": "./outlines/bw-multimodal.json"
+      "outline": "./outlines/bw-multimodal.json",
+      "galleryPages": [
+        {
+          "id": "bw-multimodal-example-01",
+          "title": "会议案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/bw-multimodal-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-multimodal-example-01.md"
+        },
+        {
+          "id": "bw-multimodal-example-02",
+          "title": "餐厅案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-multimodal-example-02.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-multimodal-example-02.md"
+        }
+      ]
     },
     {
       "nodeId": "bw-rag",
@@ -187,7 +427,18 @@
       "pages": [
         "bw-rag-example-01"
       ],
-      "outline": "./outlines/bw-rag.json"
+      "outline": "./outlines/bw-rag.json",
+      "galleryPages": [
+        {
+          "id": "bw-rag-example-01",
+          "title": "RAG案例的完整逻辑",
+          "paragraphIndexes": [
+            5
+          ],
+          "image": "./illustrations/example-pages/images/bw-rag-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/bw-rag-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "figma-overview",
@@ -197,7 +448,19 @@
       "pages": [
         "figma-overview-example-01"
       ],
-      "outline": "./outlines/figma-overview.json"
+      "outline": "./outlines/figma-overview.json",
+      "galleryPages": [
+        {
+          "id": "figma-overview-example-01",
+          "title": "餐厅案例的完整逻辑",
+          "paragraphIndexes": [
+            1,
+            2
+          ],
+          "image": "./illustrations/example-pages/images/figma-overview-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/figma-overview-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "canva-overview",
@@ -207,7 +470,19 @@
       "pages": [
         "canva-overview-example-01"
       ],
-      "outline": "./outlines/canva-overview.json"
+      "outline": "./outlines/canva-overview.json",
+      "galleryPages": [
+        {
+          "id": "canva-overview-example-01",
+          "title": "Canva 到底是什么案例的完整逻辑",
+          "paragraphIndexes": [
+            2,
+            3
+          ],
+          "image": "./illustrations/example-pages/images/canva-overview-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/canva-overview-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "chunk-explained",
@@ -217,7 +492,18 @@
       "pages": [
         "chunk-explained-example-01"
       ],
-      "outline": "./outlines/chunk-explained.json"
+      "outline": "./outlines/chunk-explained.json",
+      "galleryPages": [
+        {
+          "id": "chunk-explained-example-01",
+          "title": "Chunk 与重叠案例的完整逻辑",
+          "paragraphIndexes": [
+            3
+          ],
+          "image": "./illustrations/example-pages/images/chunk-explained-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/chunk-explained-example-01.md"
+        }
+      ]
     },
     {
       "nodeId": "rerank-explained",
@@ -227,7 +513,18 @@
       "pages": [
         "rerank-explained-example-01"
       ],
-      "outline": "./outlines/rerank-explained.json"
+      "outline": "./outlines/rerank-explained.json",
+      "galleryPages": [
+        {
+          "id": "rerank-explained-example-01",
+          "title": "论文案例的完整逻辑",
+          "paragraphIndexes": [
+            1
+          ],
+          "image": "./illustrations/example-pages/images/rerank-explained-example-01.png",
+          "prompt": "./illustrations/example-pages/prompts/rerank-explained-example-01.md"
+        }
+      ]
     }
   ]
 }

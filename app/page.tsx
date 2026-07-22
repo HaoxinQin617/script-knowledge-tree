@@ -8,6 +8,7 @@ import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
 import { getDefinitionIndex, getLevelGuide } from "./knowledge-selectors";
 import { getVisualVersions } from "./visual-data";
+import { getExampleVisuals } from "./example-visual-data";
 import { PrimaryScriptVisual, VisualPreviewRail } from "./script-visuals";
 
 const keyTerms = [
@@ -182,6 +183,7 @@ export default function Home() {
 
   if (current) {
     const currentVisuals = getVisualVersions(current.id);
+    const exampleVisuals = getExampleVisuals(current.id);
     const levelGuide = getLevelGuide(current.id);
     const path = pathFor(current);
     const related = branchFor(current);
@@ -225,7 +227,7 @@ export default function Home() {
             </div> : null}
             {detailView === "script" || !practicalGuide ? <>
             <PrimaryScriptVisual title={current.title} visuals={currentVisuals}/>
-            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate} mobile/>
+            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate} examples={exampleVisuals} mobile/>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }
             </div>
@@ -234,7 +236,7 @@ export default function Home() {
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">
-            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate}/>
+            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate} examples={exampleVisuals}/>
             {resources.length ? <ResourceCards resources={resources}/> : null}
             {practicalGuide ? <GuideRailCard guide={practicalGuide} isOpen={detailView === "guide"} onOpen={toggleGuide}/> : null}
             <div className="rail-heading"><p>{current.level === 1 ? "下一层" : current.level === 2 ? "继续深入" : "同组术语"}</p><h2>{current.level === 1 ? "类别" : "知识节点"}</h2></div>

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { LevelGuideItem } from "./knowledge-selectors";
 import type { ScriptVisualVersions } from "./visual-data";
+import type { ExampleVisualPage } from "./example-visual-data";
+import { ExampleGallery } from "./example-gallery";
 
 type VisualProps = {
   title: string;
@@ -13,6 +15,7 @@ type VisualProps = {
 type VisualPreviewProps = VisualProps & {
   levelGuide: LevelGuideItem[];
   onNavigateLevel: (nodeId: string) => void;
+  examples: ExampleVisualPage[];
 };
 
 const previews = [
@@ -52,7 +55,7 @@ export function LevelGuide({ items, onNavigate }: { items: LevelGuideItem[]; onN
   );
 }
 
-export function VisualPreviewRail({ title, visuals, levelGuide, onNavigateLevel, mobile = false }: VisualPreviewProps & { mobile?: boolean }) {
+export function VisualPreviewRail({ title, visuals, levelGuide, onNavigateLevel, examples, mobile = false }: VisualPreviewProps & { mobile?: boolean }) {
   const [active, setActive] = useState<(typeof previews)[number] | null>(null);
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
 
@@ -89,6 +92,7 @@ export function VisualPreviewRail({ title, visuals, levelGuide, onNavigateLevel,
               <i>点击放大</i>
             </button>
           ))}
+          <ExampleGallery title={title} pages={examples}/>
         </div>
       </section>
       {active ? <VisualLightbox title={`${title} · ${active.label}`} src={visuals[active.key]} onClose={close}/> : null}

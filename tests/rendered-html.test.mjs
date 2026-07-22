@@ -186,6 +186,41 @@ test("builds variable-panel example-page outlines from complete script logic", a
   assert.ok(panelCounts.size >= 2, "panel count must follow logic instead of a fixed template");
 });
 
+test("ships every example page as one compact pageable gallery", async () => {
+  const [gallery, visualData, visuals, page, css, manifest] = await Promise.all([
+    readFile(new URL("../app/example-gallery.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/example-visual-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/script-visuals.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    JSON.parse(await readFile(new URL("../public/illustrations/example-pages/manifest.json", import.meta.url), "utf8")),
+  ]);
+
+  assert.match(visualData, /export function getExampleVisuals/);
+  assert.match(visuals, /<ExampleGallery title=\{title\} pages=\{examples\}/);
+  assert.equal((page.match(/examples=\{exampleVisuals\}/g) ?? []).length, 2);
+  assert.match(gallery, /举例图集 · \{pages\.length\} 页/);
+  assert.match(gallery, /第 \{index \+ 1\} \/ \{pages\.length\} 页/);
+  assert.match(gallery, /ArrowLeft/);
+  assert.match(gallery, /ArrowRight/);
+  assert.match(gallery, /touchStart/);
+  assert.match(gallery, /Math\.abs\(distance\) >= 48/);
+  assert.match(gallery, /requestAnimationFrame\(\(\) => trigger\.current\?\.focus\(\)\)/);
+  assert.match(css, /\.example-gallery-card/);
+  assert.match(css, /\.example-gallery-modal/);
+
+  let pages = 0;
+  for (const node of manifest.nodes) {
+    assert.equal(node.galleryPages.length, node.pageCount);
+    for (const entry of node.galleryPages) {
+      await access(new URL(`../public/${entry.image.replace(/^\.\//, "")}`, import.meta.url));
+      await access(new URL(`../public/${entry.prompt.replace(/^\.\//, "")}`, import.meta.url));
+      pages += 1;
+    }
+  }
+  assert.equal(pages, manifest.totalPages);
+});
+
 test("adds a Codex installation topic with a practical guide", async () => {
   const [page, tasks, guide] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
