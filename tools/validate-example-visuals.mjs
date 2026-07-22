@@ -16,7 +16,7 @@ for (const node of manifest.nodes) {
     seen.add(page.id);
     if (!page.title || page.panels.length < 2) throw new Error(`Invalid outline: ${page.id}`);
     const promptPath = join(base, "prompts", `${page.id}.md`);
-    const imagePath = join(base, "images", `${page.id}.png`);
+    const imagePath = join(base, "images", `${page.id}.webp`);
     try {
       const prompt = await readFile(promptPath, "utf8");
       if (/mindmaps|卷册/.test(prompt)) throw new Error(`Forbidden prompt reference: ${page.id}`);

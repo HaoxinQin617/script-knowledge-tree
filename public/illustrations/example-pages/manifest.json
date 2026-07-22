@@ -29,7 +29,7 @@
             0,
             1
           ],
-          "image": "./illustrations/example-pages/images/overview-example-01.png",
+          "image": "./illustrations/example-pages/images/overview-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/overview-example-01.md"
         }
       ]
@@ -51,7 +51,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/api-example-01.png",
+          "image": "./illustrations/example-pages/images/api-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/api-example-01.md"
         },
         {
@@ -60,7 +60,7 @@
           "paragraphIndexes": [
             8
           ],
-          "image": "./illustrations/example-pages/images/api-example-02.png",
+          "image": "./illustrations/example-pages/images/api-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/api-example-02.md"
         }
       ]
@@ -81,7 +81,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/self-host-example-01.png",
+          "image": "./illustrations/example-pages/images/self-host-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/self-host-example-01.md"
         }
       ]
@@ -102,7 +102,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/hybrid-example-01.png",
+          "image": "./illustrations/example-pages/images/hybrid-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/hybrid-example-01.md"
         }
       ]
@@ -123,7 +123,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/api-term-example-01.png",
+          "image": "./illustrations/example-pages/images/api-term-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/api-term-example-01.md"
         }
       ]
@@ -144,7 +144,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/gpu-example-01.png",
+          "image": "./illustrations/example-pages/images/gpu-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/gpu-example-01.md"
         }
       ]
@@ -165,7 +165,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/blackwords-overview-example-01.png",
+          "image": "./illustrations/example-pages/images/blackwords-overview-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/blackwords-overview-example-01.md"
         }
       ]
@@ -188,7 +188,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/bw-action-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-action-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-action-example-01.md"
         },
         {
@@ -197,7 +197,7 @@
           "paragraphIndexes": [
             3
           ],
-          "image": "./illustrations/example-pages/images/bw-action-example-02.png",
+          "image": "./illustrations/example-pages/images/bw-action-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-action-example-02.md"
         },
         {
@@ -206,7 +206,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-action-example-03.png",
+          "image": "./illustrations/example-pages/images/bw-action-example-03.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-action-example-03.md"
         }
       ]
@@ -228,7 +228,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/bw-model-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-model-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-model-example-01.md"
         },
         {
@@ -237,7 +237,7 @@
           "paragraphIndexes": [
             7
           ],
-          "image": "./illustrations/example-pages/images/bw-model-example-02.png",
+          "image": "./illustrations/example-pages/images/bw-model-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-model-example-02.md"
         }
       ]
@@ -258,7 +258,7 @@
           "paragraphIndexes": [
             0
           ],
-          "image": "./illustrations/example-pages/images/bw-agent-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-agent-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-agent-example-01.md"
         }
       ]
@@ -280,7 +280,7 @@
           "paragraphIndexes": [
             4
           ],
-          "image": "./illustrations/example-pages/images/bw-openclaw-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-openclaw-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-openclaw-example-01.md"
         },
         {
@@ -289,7 +289,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-openclaw-example-02.png",
+          "image": "./illustrations/example-pages/images/bw-openclaw-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-openclaw-example-02.md"
         }
       ]
@@ -311,7 +311,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/bw-skills-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-skills-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-skills-example-01.md"
         },
         {
@@ -320,7 +320,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-skills-example-02.png",
+          "image": "./illustrations/example-pages/images/bw-skills-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-skills-example-02.md"
         }
       ]
@@ -341,7 +341,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-gacha-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-gacha-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-gacha-example-01.md"
         }
       ]
@@ -362,7 +362,7 @@
           "paragraphIndexes": [
             6
           ],
-          "image": "./illustrations/example-pages/images/bw-context-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-context-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-context-example-01.md"
         }
       ]
@@ -383,7 +383,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-generalization-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-generalization-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-generalization-example-01.md"
         }
       ]
@@ -405,7 +405,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/bw-multimodal-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-multimodal-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-multimodal-example-01.md"
         },
         {
@@ -414,7 +414,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-multimodal-example-02.png",
+          "image": "./illustrations/example-pages/images/bw-multimodal-example-02.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-multimodal-example-02.md"
         }
       ]
@@ -435,7 +435,7 @@
           "paragraphIndexes": [
             5
           ],
-          "image": "./illustrations/example-pages/images/bw-rag-example-01.png",
+          "image": "./illustrations/example-pages/images/bw-rag-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/bw-rag-example-01.md"
         }
       ]
@@ -457,7 +457,7 @@
             1,
             2
           ],
-          "image": "./illustrations/example-pages/images/figma-overview-example-01.png",
+          "image": "./illustrations/example-pages/images/figma-overview-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/figma-overview-example-01.md"
         }
       ]
@@ -479,7 +479,7 @@
             2,
             3
           ],
-          "image": "./illustrations/example-pages/images/canva-overview-example-01.png",
+          "image": "./illustrations/example-pages/images/canva-overview-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/canva-overview-example-01.md"
         }
       ]
@@ -500,7 +500,7 @@
           "paragraphIndexes": [
             3
           ],
-          "image": "./illustrations/example-pages/images/chunk-explained-example-01.png",
+          "image": "./illustrations/example-pages/images/chunk-explained-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/chunk-explained-example-01.md"
         }
       ]
@@ -521,7 +521,7 @@
           "paragraphIndexes": [
             1
           ],
-          "image": "./illustrations/example-pages/images/rerank-explained-example-01.png",
+          "image": "./illustrations/example-pages/images/rerank-explained-example-01.webp",
           "prompt": "./illustrations/example-pages/prompts/rerank-explained-example-01.md"
         }
       ]

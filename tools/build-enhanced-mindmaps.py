@@ -4,7 +4,7 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "public" / "illustrations" / "mindmaps"
+SOURCE = ROOT / "archive" / "source-images" / "mindmaps"
 TARGET = ROOT / "public" / "illustrations" / "mindmaps-enhanced"
 
 

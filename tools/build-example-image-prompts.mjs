@@ -16,7 +16,7 @@ for (const node of manifest.nodes) {
     id: page.id,
     title: page.title,
     paragraphIndexes: page.paragraphIndexes,
-    image: `./illustrations/example-pages/images/${page.id}.png`,
+    image: `./illustrations/example-pages/images/${page.id}.webp`,
     prompt: `./illustrations/example-pages/prompts/${page.id}.md`,
   }));
   for (const page of outline.pages) {

@@ -29,12 +29,12 @@ test("keeps original, style 2, and style 3 visuals plus one reproducible prompt 
   const manifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(manifest.items.map((item) => item.id).sort(), [...ids].sort());
   assert.ok(manifest.items.every((item) => item.outline.length >= 4 && item.prompt.length > 40));
-  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  await Promise.all(ids.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.webp`, import.meta.url))));
   await Promise.all(ids.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style2/${id}.png`, import.meta.url))));
   await Promise.all(ids.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style3/${id}.png`, import.meta.url))));
   const blackwordManifest = JSON.parse(await readFile(new URL("../public/illustrations/mindmaps/blackwords-prompts.json", import.meta.url), "utf8"));
   assert.deepEqual(blackwordManifest.items.map((item) => item.id).sort(), [...blackwordIds].sort());
-  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  await Promise.all(blackwordIds.map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.webp`, import.meta.url))));
   await Promise.all(blackwordIds.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style2/${id}.png`, import.meta.url))));
   await Promise.all(blackwordIds.map((id) => access(new URL(`../archive/legacy-visuals/mindmaps-style3/${id}.png`, import.meta.url))));
 });
@@ -237,7 +237,7 @@ test("adds a Codex installation topic with a practical guide", async () => {
   assert.match(guide, /learn\.chatgpt\.com\/docs\/codex\/cli/);
   await Promise.all([
     "codex-china-overview", "codex-desktop", "codex-cli-guide", "codex-ide-guide",
-  ].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  ].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.webp`, import.meta.url))));
 });
 
 test("adds homepage categories, new definition topics, and official resource rails", async () => {
@@ -259,5 +259,5 @@ test("adds homepage categories, new definition topics, and official resource rai
   assert.match(resources, /figma\.com\/design/);
   assert.match(resources, /canva\.com\/create/);
   assert.match(rules, /Never use/);
-  await Promise.all(["figma-overview","canva-overview","figma-canva","rag-building-blocks","chunk-explained","rerank-explained","vector-db-explained"].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.png`, import.meta.url))));
+  await Promise.all(["figma-overview","canva-overview","figma-canva","rag-building-blocks","chunk-explained","rerank-explained","vector-db-explained"].map((id) => access(new URL(`../public/illustrations/mindmaps/${id}.webp`, import.meta.url))));
 });

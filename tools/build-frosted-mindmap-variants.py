@@ -4,7 +4,7 @@ from PIL import Image, ImageChops, ImageEnhance, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "public" / "illustrations" / "mindmaps"
+SOURCE = ROOT / "archive" / "source-images" / "mindmaps"
 STYLE_2 = ROOT / "archive" / "legacy-visuals" / "mindmaps-style2"
 STYLE_3 = ROOT / "archive" / "legacy-visuals" / "mindmaps-style3"
 
