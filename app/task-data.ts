@@ -1,6 +1,6 @@
 import { nodes as apiNodes, type ScriptNode } from "./script-data";
 
-export type TaskMeta = {
+export type TaskRecord = {
   id: string;
   rootId: string;
   createdAt: string;
@@ -9,6 +9,8 @@ export type TaskMeta = {
   coverPhrase: string;
   category: "definition" | "use-ai";
 };
+
+export type TaskMeta = TaskRecord;
 
 const source = "基于用户上传图片整理";
 

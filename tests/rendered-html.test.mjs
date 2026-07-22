@@ -85,6 +85,17 @@ test("homepage is a date-sortable first-layer task library", async () => {
   assert.match(data, /2026-07-21T08:35:00-07:00/);
 });
 
+test("definition index and level guide expose pure cross-level selectors", async () => {
+  const selectors = await readFile(new URL("../app/knowledge-selectors.ts", import.meta.url), "utf8");
+  assert.match(selectors, /export function getAncestors/);
+  assert.match(selectors, /export function getLevelGuide/);
+  assert.match(selectors, /export function getDefinitionIndex/);
+  assert.match(selectors, /task\.category !== "definition"/);
+  assert.match(selectors, /visited\.has\(node\.id\)/);
+  assert.match(selectors, /level: node\.level/);
+  assert.match(selectors, /node,\s*root,\s*task/);
+});
+
 test("preserves raw script data while emphasis stays in the view", async () => {
   const [page, data] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
