@@ -6,7 +6,7 @@ import { type ScriptNode } from "./script-data";
 import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
-import { getLevelGuide } from "./knowledge-selectors";
+import { getDefinitionIndex, getLevelGuide } from "./knowledge-selectors";
 import { getVisualVersions } from "./visual-data";
 import { PrimaryScriptVisual, VisualPreviewRail } from "./script-visuals";
 
@@ -148,19 +148,27 @@ export default function Home() {
 
   const current = getNode(selected);
   const practicalGuide = current ? guideByNode[current.id] : undefined;
-  const visible = useMemo(() => tasks
-    .filter((task) => dateFilter === "all" || task.dateLabel === dateFilter)
-    .filter((task) => categoryFilter === "all" || task.category === categoryFilter)
-    .sort((a, b) => sortOrder === "newest"
-      ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-    .map((task) => ({ task, node: getNode(task.rootId) }))
-    .filter((entry): entry is { task: typeof tasks[number]; node: ScriptNode } => Boolean(entry.node))
-    .filter(({ node }) => {
+  const definitionIndex = useMemo(() => getDefinitionIndex(), []);
+  const visible = useMemo(() => {
+    const rootEntries = tasks
+      .filter((task) => categoryFilter === "all" || task.category === "use-ai")
+      .map((task) => {
+        const node = getNode(task.rootId);
+        return node ? { task, node, root: node } : null;
+      })
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+    const candidates = categoryFilter === "definition"
+      ? definitionIndex
+      : rootEntries;
     const normalized = query.trim().toLowerCase();
-    const textMatch = !normalized || `${node.title} ${node.summary} ${node.eyebrow}`.toLowerCase().includes(normalized);
-    return textMatch;
-  }), [dateFilter, categoryFilter, sortOrder, query]);
+
+    return candidates
+      .filter(({ task }) => dateFilter === "all" || task.dateLabel === dateFilter)
+      .filter(({ node, root }) => !normalized || `${node.title} ${node.summary} ${node.eyebrow} ${root.title}`.toLowerCase().includes(normalized))
+      .sort(({ task: a }, { task: b }) => sortOrder === "newest"
+        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }, [dateFilter, categoryFilter, sortOrder, query, definitionIndex]);
 
   const dateOptions = [...new Set(tasks.map((task) => task.dateLabel))].sort().reverse();
   const latest = visible[0] ?? tasks.map((task) => ({task,node:getNode(task.rootId)})).find((entry) => entry.node);
@@ -265,7 +273,7 @@ export default function Home() {
       </section>
       <section className="library glass">
         <div className="library-head">
-          <div><p className="eyebrow">独立主题任务库</p><h2>第一层主题</h2></div>
+          <div><p className="eyebrow">独立主题任务库</p><h2>{categoryFilter === "definition" ? "定义知识索引" : "第一层主题"}</h2></div>
           <div className="category-filters" role="group" aria-label="按内容类型筛选">
             <button className={categoryFilter === "all" ? "active" : ""} onClick={() => setCategoryFilter("all")}>全部</button>
             <button className={categoryFilter === "definition" ? "active" : ""} onClick={() => setCategoryFilter("definition")}>定义</button>
@@ -277,9 +285,17 @@ export default function Home() {
           </div>
         </div>
         <div className="card-grid">
-          {visible.map(({task,node}) => <button className={`topic-card glass level-card-${node.level}`} key={task.id} onClick={() => navigate(node.id)}>
+          {visible.map(({task,node,root}) => <button className={`topic-card glass level-card-${node.level}`} key={`${task.id}-${node.id}`} onClick={() => navigate(node.id)}>
             <div className="card-visual"><Image src={getVisualVersions(node.id).original} alt={`${node.title}口播首图`} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
-            <div className="card-copy"><p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料 · {task.category === "definition" ? "定义" : "使用 AI"}</p><h3>{node.title}</h3><p>{node.summary}</p><footer><b>第一层总览</b><span>进入主题 →</span></footer></div>
+            <div className="card-copy">
+              <p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料 · {task.category === "definition" ? "定义" : "使用 AI"}</p>
+              <h3>{node.title}</h3><p>{node.summary}</p>
+              {categoryFilter === "definition" ? <>
+                <div className="definition-card-meta"><span>第 {node.level} 层</span><span>{node.duration}</span></div>
+                <p className="definition-root">所属主题：<b>{root.title}</b></p>
+              </> : null}
+              <footer><b>{categoryFilter === "definition" ? (node.level === 1 ? "第一层总览" : `第 ${node.level} 层知识`) : "第一层总览"}</b><span>{categoryFilter === "definition" ? "打开口播稿" : "进入主题"} →</span></footer>
+            </div>
           </button>)}
         </div>
         {!visible.length && <div className="empty">没有找到匹配的口播稿。</div>}

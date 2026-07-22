@@ -96,13 +96,32 @@ test("definition index and level guide expose pure cross-level selectors", async
   assert.match(selectors, /node,\s*root,\s*task/);
 });
 
+test("homepage definition filter indexes every knowledge level without changing root-only views", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(page, /import \{ getDefinitionIndex, getLevelGuide \} from "\.\/knowledge-selectors"/);
+  assert.match(page, /const definitionIndex = useMemo\(\(\) => getDefinitionIndex\(\), \[\]\)/);
+  assert.match(page, /categoryFilter === "definition"\s*\? definitionIndex/);
+  assert.match(page, /root\.title/);
+  assert.match(page, /node\.eyebrow/);
+  assert.match(page, /所属主题/);
+  assert.match(page, /第 \{node\.level\} 层/);
+  assert.match(page, /node\.duration/);
+  assert.match(page, /onClick=\{\(\) => navigate\(node\.id\)\}/);
+  assert.match(css, /\.definition-card-meta/);
+  assert.match(css, /\.definition-root/);
+});
+
 test("moves the level guide above the new visual previews on desktop and mobile", async () => {
   const [page, components, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/script-visuals.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
-  assert.match(page, /import \{ getLevelGuide \} from "\.\/knowledge-selectors"/);
+  assert.match(page, /import \{[^}]*getLevelGuide[^}]*\} from "\.\/knowledge-selectors"/);
   assert.match(page, /const levelGuide = getLevelGuide\(current\.id\)/);
   assert.doesNotMatch(page, /<div className="reading-progress"/);
   assert.equal((page.match(/levelGuide=\{levelGuide\}/g) ?? []).length, 2);
