@@ -6,6 +6,7 @@ import { type ScriptNode } from "./script-data";
 import { nodes, tasks } from "./task-data";
 import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
+import { getLevelGuide } from "./knowledge-selectors";
 import { getVisualVersions } from "./visual-data";
 import { PrimaryScriptVisual, VisualPreviewRail } from "./script-visuals";
 
@@ -173,6 +174,7 @@ export default function Home() {
 
   if (current) {
     const currentVisuals = getVisualVersions(current.id);
+    const levelGuide = getLevelGuide(current.id);
     const path = pathFor(current);
     const related = branchFor(current);
     const parent = current.parent ? getNode(current.parent) : undefined;
@@ -203,9 +205,6 @@ export default function Home() {
         <section className="reader-layout">
           <article className="script-paper glass" id="script-content">
             <button className="level-back-button" onClick={() => navigate(parent?.id ?? null)}>← {backLabel}</button>
-            <div className="reading-progress" aria-label={`当前位于第 ${current.level} 层`}>
-              {[1,2,3].map((level) => <span key={level} className={level <= current.level ? "reached" : ""}><i>{level}</i><b>{["总览","类别","术语"][level-1]}</b></span>)}
-            </div>
             <div className={`level-badge level-${current.level}`}>第 {current.level} 层 · {current.eyebrow}</div>
             <p className="eyebrow">{current.duration} · 可直接照稿朗读</p>
             <h1>{current.title}</h1>
@@ -218,7 +217,7 @@ export default function Home() {
             </div> : null}
             {detailView === "script" || !practicalGuide ? <>
             <PrimaryScriptVisual title={current.title} visuals={currentVisuals}/>
-            <VisualPreviewRail title={current.title} visuals={currentVisuals} mobile/>
+            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate} mobile/>
             <div className="script-body">
               {current.body.map((paragraph, index) => <RichParagraph text={paragraph} index={index} key={index}/>) }
             </div>
@@ -227,7 +226,7 @@ export default function Home() {
           </article>
 
           <aside className="topic-rail glass" aria-label="知识树导航">
-            <VisualPreviewRail title={current.title} visuals={currentVisuals}/>
+            <VisualPreviewRail title={current.title} visuals={currentVisuals} levelGuide={levelGuide} onNavigateLevel={navigate}/>
             {resources.length ? <ResourceCards resources={resources}/> : null}
             {practicalGuide ? <GuideRailCard guide={practicalGuide} isOpen={detailView === "guide"} onOpen={toggleGuide}/> : null}
             <div className="rail-heading"><p>{current.level === 1 ? "下一层" : current.level === 2 ? "继续深入" : "同组术语"}</p><h2>{current.level === 1 ? "类别" : "知识节点"}</h2></div>

@@ -2,11 +2,17 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { LevelGuideItem } from "./knowledge-selectors";
 import type { ScriptVisualVersions } from "./visual-data";
 
 type VisualProps = {
   title: string;
   visuals: ScriptVisualVersions;
+};
+
+type VisualPreviewProps = VisualProps & {
+  levelGuide: LevelGuideItem[];
+  onNavigateLevel: (nodeId: string) => void;
 };
 
 const previews = [
@@ -25,7 +31,28 @@ export function PrimaryScriptVisual({ title, visuals }: VisualProps) {
   );
 }
 
-export function VisualPreviewRail({ title, visuals, mobile = false }: VisualProps & { mobile?: boolean }) {
+export function LevelGuide({ items, onNavigate }: { items: LevelGuideItem[]; onNavigate: (nodeId: string) => void }) {
+  return (
+    <nav className="reading-progress" aria-label="口播知识层级">
+      {items.map((item) => {
+        const content = <><i>{item.level}</i><b>{item.label}</b></>;
+        return item.nodeId ? (
+          <button
+            type="button"
+            key={item.level}
+            className={item.nodeId ? "reached" : ""}
+            aria-current={item.active ? "step" : undefined}
+            onClick={() => onNavigate(item.nodeId!)}
+          >
+            {content}
+          </button>
+        ) : <span key={item.level}>{content}</span>;
+      })}
+    </nav>
+  );
+}
+
+export function VisualPreviewRail({ title, visuals, levelGuide, onNavigateLevel, mobile = false }: VisualPreviewProps & { mobile?: boolean }) {
   const [active, setActive] = useState<(typeof previews)[number] | null>(null);
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
 
@@ -45,21 +72,24 @@ export function VisualPreviewRail({ title, visuals, mobile = false }: VisualProp
 
   return (
     <>
-      <section className={`${mobile ? "mobile-visual-previews" : "visual-preview-rail"}`} aria-label="两个新版口播结构图预览">
-        {!mobile ? <header><span>新版结构图</span><b>2 个独立版本</b></header> : null}
-        {previews.map((preview) => (
-          <button
-            className="visual-preview-card"
-            key={preview.key}
-            ref={(element) => { if (active?.key === preview.key && element) lastTrigger.current = element; }}
-            onClick={(event) => { lastTrigger.current = event.currentTarget; setActive(preview); }}
-            aria-label={`放大查看${title}${preview.label}`}
-          >
-            <span><strong>{preview.label}</strong><small>{preview.note}</small></span>
-            <Image src={visuals[preview.key]} alt={`${title}${preview.label}预览`} width={480} height={300} unoptimized/>
-            <i>点击放大</i>
-          </button>
-        ))}
+      <section className={`script-visual-preview-group ${mobile ? "mobile-script-visual-preview-group" : "desktop-script-visual-preview-group"}`} aria-label="口播层级与新版结构图">
+        <LevelGuide items={levelGuide} onNavigate={onNavigateLevel}/>
+        <div className={mobile ? "mobile-visual-previews" : "visual-preview-rail"} aria-label="两个新版口播结构图预览">
+          {!mobile ? <header><span>新版结构图</span><b>2 个独立版本</b></header> : null}
+          {previews.map((preview) => (
+            <button
+              className="visual-preview-card"
+              key={preview.key}
+              ref={(element) => { if (active?.key === preview.key && element) lastTrigger.current = element; }}
+              onClick={(event) => { lastTrigger.current = event.currentTarget; setActive(preview); }}
+              aria-label={`放大查看${title}${preview.label}`}
+            >
+              <span><strong>{preview.label}</strong><small>{preview.note}</small></span>
+              <Image src={visuals[preview.key]} alt={`${title}${preview.label}预览`} width={480} height={300} unoptimized/>
+              <i>点击放大</i>
+            </button>
+          ))}
+        </div>
       </section>
       {active ? <VisualLightbox title={`${title} · ${active.label}`} src={visuals[active.key]} onClose={close}/> : null}
     </>

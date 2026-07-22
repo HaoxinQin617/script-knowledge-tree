@@ -96,6 +96,23 @@ test("definition index and level guide expose pure cross-level selectors", async
   assert.match(selectors, /node,\s*root,\s*task/);
 });
 
+test("moves the level guide above the new visual previews on desktop and mobile", async () => {
+  const [page, components, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/script-visuals.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(page, /import \{ getLevelGuide \} from "\.\/knowledge-selectors"/);
+  assert.match(page, /const levelGuide = getLevelGuide\(current\.id\)/);
+  assert.doesNotMatch(page, /<div className="reading-progress"/);
+  assert.equal((page.match(/levelGuide=\{levelGuide\}/g) ?? []).length, 2);
+  assert.match(components, /export function LevelGuide/);
+  assert.match(components, /className="reading-progress"/);
+  assert.match(components, /<LevelGuide[\s\S]*?<div className=\{mobile \? "mobile-visual-previews" : "visual-preview-rail"\}/);
+  assert.match(css, /\.script-visual-preview-group/);
+  assert.match(css, /\.mobile-script-visual-preview-group \.reading-progress/);
+});
+
 test("preserves raw script data while emphasis stays in the view", async () => {
   const [page, data] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
