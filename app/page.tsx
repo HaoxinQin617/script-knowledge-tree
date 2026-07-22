@@ -8,7 +8,7 @@ import { guideByNode, type PracticalGuide } from "./guide-data";
 import { resourcesByNode, type PageResource } from "./resource-data";
 import { getDefinitionIndex, getLevelGuide } from "./knowledge-selectors";
 import { getVisualVersions } from "./visual-data";
-import { getExampleVisuals } from "./example-visual-data";
+import { getExampleVisuals, getExplanationGalleryIndex } from "./example-visual-data";
 import { PrimaryScriptVisual, VisualPreviewRail } from "./script-visuals";
 
 const keyTerms = [
@@ -122,7 +122,7 @@ function ResourceCards({ resources, compact = false }: { resources: PageResource
 export default function Home() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
-  const [categoryFilter, setCategoryFilter] = useState<"all" | "definition" | "use-ai">("all");
+  const [categoryFilter, setCategoryFilter] = useState<"all" | "definition" | "use-ai" | "explanation">("all");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -150,17 +150,21 @@ export default function Home() {
   const current = getNode(selected);
   const practicalGuide = current ? guideByNode[current.id] : undefined;
   const definitionIndex = useMemo(() => getDefinitionIndex(), []);
+  const explanationIndex = useMemo(() => getExplanationGalleryIndex(), []);
   const visible = useMemo(() => {
     const rootEntries = tasks
       .filter((task) => categoryFilter === "all" || task.category === "use-ai")
       .map((task) => {
         const node = getNode(task.rootId);
-        return node ? { task, node, root: node } : null;
+        return node ? { task, node, root: node, cover: undefined, pageCount: 0 } : null;
       })
       .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
-    const candidates = categoryFilter === "definition"
-      ? definitionIndex
-      : rootEntries;
+    const definitionEntries = definitionIndex.map((entry) => ({ ...entry, cover: undefined, pageCount: 0 }));
+    const candidates = categoryFilter === "explanation"
+      ? explanationIndex
+      : categoryFilter === "definition"
+        ? definitionEntries
+        : rootEntries;
     const normalized = query.trim().toLowerCase();
 
     return candidates
@@ -169,7 +173,7 @@ export default function Home() {
       .sort(({ task: a }, { task: b }) => sortOrder === "newest"
         ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-  }, [dateFilter, categoryFilter, sortOrder, query, definitionIndex]);
+  }, [dateFilter, categoryFilter, sortOrder, query, definitionIndex, explanationIndex]);
 
   const dateOptions = [...new Set(tasks.map((task) => task.dateLabel))].sort().reverse();
   const latest = visible[0] ?? tasks.map((task) => ({task,node:getNode(task.rootId)})).find((entry) => entry.node);
@@ -275,11 +279,12 @@ export default function Home() {
       </section>
       <section className="library glass">
         <div className="library-head">
-          <div><p className="eyebrow">独立主题任务库</p><h2>{categoryFilter === "definition" ? "定义知识索引" : "第一层主题"}</h2></div>
+          <div><p className="eyebrow">独立主题任务库</p><h2>{categoryFilter === "definition" ? "定义知识索引" : categoryFilter === "explanation" ? "讲解图索引" : "第一层主题"}</h2></div>
           <div className="category-filters" role="group" aria-label="按内容类型筛选">
             <button className={categoryFilter === "all" ? "active" : ""} onClick={() => setCategoryFilter("all")}>全部</button>
             <button className={categoryFilter === "definition" ? "active" : ""} onClick={() => setCategoryFilter("definition")}>定义</button>
             <button className={categoryFilter === "use-ai" ? "active" : ""} onClick={() => setCategoryFilter("use-ai")}>使用 AI</button>
+            <button className={categoryFilter === "explanation" ? "active" : ""} onClick={() => setCategoryFilter("explanation")}>讲解图</button>
           </div>
           <div className="date-controls">
             <label><span>日期</span><select value={dateFilter} onChange={(event) => setDateFilter(event.target.value)}><option value="all">全部日期</option>{dateOptions.map((date) => <option key={date} value={date}>{date}</option>)}</select></label>
@@ -287,8 +292,8 @@ export default function Home() {
           </div>
         </div>
         <div className="card-grid">
-          {visible.map(({task,node,root}) => <button className={`topic-card glass level-card-${node.level}`} key={`${task.id}-${node.id}`} onClick={() => navigate(node.id)}>
-            <div className="card-visual"><Image src={getVisualVersions(node.id).original} alt={`${node.title}口播首图`} width={792} height={495} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
+          {visible.map(({task,node,root,cover,pageCount}) => <button className={`topic-card glass level-card-${node.level} ${categoryFilter === "explanation" ? "explanation-card" : ""}`} key={`${task.id}-${node.id}`} onClick={() => navigate(node.id)}>
+            <div className="card-visual"><Image src={categoryFilter === "explanation" && cover ? cover.image : getVisualVersions(node.id).original} alt={categoryFilter === "explanation" ? `${node.title}讲解图集封面` : `${node.title}口播首图`} width={1584} height={990} priority={node.level === 1} unoptimized/><span>第 {node.level} 层</span><i>{node.duration}</i></div>
             <div className="card-copy">
               <p className="card-kicker">{task.dateLabel} · {task.sourceCount} 张资料 · {task.category === "definition" ? "定义" : "使用 AI"}</p>
               <h3>{node.title}</h3><p>{node.summary}</p>
@@ -296,7 +301,8 @@ export default function Home() {
                 <div className="definition-card-meta"><span>第 {node.level} 层</span><span>{node.duration}</span></div>
                 <p className="definition-root">所属主题：<b>{root.title}</b></p>
               </> : null}
-              <footer><b>{categoryFilter === "definition" ? (node.level === 1 ? "第一层总览" : `第 ${node.level} 层知识`) : "第一层总览"}</b><span>{categoryFilter === "definition" ? "打开口播稿" : "进入主题"} →</span></footer>
+              {categoryFilter === "explanation" ? <div className="explanation-card-meta"><span>第 {node.level} 层</span><span className="explanation-page-count">共 {pageCount} 页</span></div> : null}
+              <footer><b>{categoryFilter === "explanation" ? "图集第一页封面" : categoryFilter === "definition" ? (node.level === 1 ? "第一层总览" : `第 ${node.level} 层知识`) : "第一层总览"}</b><span>{categoryFilter === "explanation" ? "进入口播查看全部内容" : categoryFilter === "definition" ? "打开口播稿" : "进入主题"} →</span></footer>
             </div>
           </button>)}
         </div>

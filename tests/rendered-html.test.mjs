@@ -104,7 +104,7 @@ test("homepage definition filter indexes every knowledge level without changing 
 
   assert.match(page, /import \{ getDefinitionIndex, getLevelGuide \} from "\.\/knowledge-selectors"/);
   assert.match(page, /const definitionIndex = useMemo\(\(\) => getDefinitionIndex\(\), \[\]\)/);
-  assert.match(page, /categoryFilter === "definition"\s*\? definitionIndex/);
+  assert.match(page, /categoryFilter === "definition"\s*\? definitionEntries/);
   assert.match(page, /root\.title/);
   assert.match(page, /node\.eyebrow/);
   assert.match(page, /所属主题/);
@@ -113,6 +113,24 @@ test("homepage definition filter indexes every knowledge level without changing 
   assert.match(page, /onClick=\{\(\) => navigate\(node\.id\)\}/);
   assert.match(css, /\.definition-card-meta/);
   assert.match(css, /\.definition-root/);
+});
+
+test("homepage explanation filter uses first gallery pages as covers", async () => {
+  const [page, data, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/example-visual-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(data, /export function getExplanationGalleryIndex/);
+  assert.match(data, /cover: pages\[0\]/);
+  assert.match(data, /pageCount: pages\.length/);
+  assert.match(page, /讲解图/);
+  assert.match(page, /categoryFilter === "explanation"\s*\? explanationIndex/);
+  assert.match(page, /cover\.image/);
+  assert.match(page, /进入口播查看全部内容/);
+  assert.match(page, /navigate\(node\.id\)/);
+  assert.match(css, /\.topic-card\.explanation-card[\s\S]*object-fit:contain/);
 });
 
 test("moves the level guide above the new visual previews on desktop and mobile", async () => {
