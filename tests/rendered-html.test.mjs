@@ -151,6 +151,41 @@ test("keeps detail-page mind maps fully visible", async () => {
   assert.match(css, /object-fit:contain!important/);
 });
 
+test("builds variable-panel example-page outlines from complete script logic", async () => {
+  const base = new URL("../public/illustrations/example-pages/outlines/", import.meta.url);
+  const manifest = JSON.parse(await readFile(new URL("../public/illustrations/example-pages/manifest.json", import.meta.url), "utf8"));
+  const analyzer = await readFile(new URL("../tools/analyze-example-logic.mjs", import.meta.url), "utf8");
+
+  assert.equal(manifest.schemaVersion, 1);
+  assert.ok(manifest.nodes.length > 0);
+  assert.ok(manifest.totalPages > 0);
+  assert.equal(manifest.totalPages, manifest.nodes.reduce((sum, node) => sum + node.pageCount, 0));
+  assert.match(analyzer, /sceneKey/);
+  assert.match(analyzer, /mergeAdjacentSceneParagraphs/);
+
+  const panelCounts = new Set();
+  for (const entry of manifest.nodes) {
+    assert.equal(entry.outline, `./outlines/${entry.nodeId}.json`);
+    const outline = JSON.parse(await readFile(new URL(`${entry.nodeId}.json`, base), "utf8"));
+    assert.equal(outline.nodeId, entry.nodeId);
+    assert.equal(outline.pages.length, entry.pageCount);
+    assert.equal(outline.pages.length, entry.pages.length);
+    for (const page of outline.pages) {
+      assert.ok(page.id && page.title && page.conclusion);
+      assert.doesNotMatch(page.title, /[\u2026\u22ef]/);
+      assert.doesNotMatch(page.conclusion, /[\u2026\u22ef]/);
+      assert.ok(Array.isArray(page.paragraphIndexes) && page.paragraphIndexes.length > 0);
+      assert.ok(Array.isArray(page.panels) && page.panels.length >= 2);
+      assert.deepEqual(page.panels.map((panel) => panel.order), page.panels.map((_, index) => index + 1));
+      assert.ok(page.panels.every((panel) => panel.label && panel.drawing));
+      assert.ok(page.panels.every((panel) => !/[\u2026\u22ef]/.test(panel.label)));
+      panelCounts.add(page.panels.length);
+    }
+    assert.doesNotMatch(JSON.stringify(outline), /\u5377\u518c/);
+  }
+  assert.ok(panelCounts.size >= 2, "panel count must follow logic instead of a fixed template");
+});
+
 test("adds a Codex installation topic with a practical guide", async () => {
   const [page, tasks, guide] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),

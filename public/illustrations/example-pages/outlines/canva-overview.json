@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "canva-overview",
+  "nodeTitle": "Canva 到底是什么",
+  "pages": [
+    {
+      "id": "canva-overview-example-01",
+      "title": "Canva 到底是什么案例的完整逻辑",
+      "paragraphIndexes": [
+        2,
+        3
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "Canva 的核心优势是模板丰富",
+          "drawing": "用简笔画表现：Canva 的核心优势是模板丰富。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：演示文稿、海报、简历、邀请函和社交媒体尺寸都已有现成结构。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "模板不是只能原样套用",
+          "drawing": "用简笔画表现：模板不是只能原样套用，它更像已经搭好的房间，你只需要更换家具和颜色。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 4,
+          "label": "它还把很多内容制作工具放在一起",
+          "drawing": "用简笔画表现：它还把很多内容制作工具放在一起，包括图片处理、简单视频、图表、动画和多人评论。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 5,
+          "label": "对运营、教师、小商家和个人创作者来说",
+          "drawing": "用简笔画表现：对运营、教师、小商家和个人创作者来说，学习成本通常比专业界面设计工具低。"
+        }
+      ],
+      "conclusion": "对运营、教师、小商家和个人创作者来说，学习成本通常比专业界面设计工具低。"
+    }
+  ]
+}

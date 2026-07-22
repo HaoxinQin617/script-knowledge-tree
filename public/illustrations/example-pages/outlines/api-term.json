@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "api-term",
+  "nodeTitle": "API",
+  "pages": [
+    {
+      "id": "api-term-example-01",
+      "title": "API案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "大家听到最多的一句话可能是",
+          "drawing": "用简笔画表现：大家听到最多的一句话可能是：这个软件接了某个大模型的 API。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "听起来像一项很深的技术",
+          "drawing": "用简笔画表现：听起来像一项很深的技术，其实 API 解决的是一个朴素问题：两个互不认识的软件，怎样按固定方式交换信息。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "它不是模型",
+          "drawing": "用简笔画表现：它不是模型，也不是聊天机器人，更像一扇写清楚办事规则的服务窗口。"
+        }
+      ],
+      "conclusion": "它不是模型，也不是聊天机器人，更像一扇写清楚办事规则的服务窗口。"
+    }
+  ]
+}

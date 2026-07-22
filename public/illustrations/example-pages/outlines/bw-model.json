@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-model",
+  "nodeTitle": "理解模型怎么工作",
+  "pages": [
+    {
+      "id": "bw-model-example-01",
+      "title": "理解模型怎么工作案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "很多人把模型想成装着标准答案的数据库",
+          "drawing": "用简笔画表现：很多人把模型想成装着标准答案的数据库，于是同一句话得到不同结果时会觉得系统坏了。",
+          "relationToNext": "导向结果"
+        },
+        {
+          "order": 2,
+          "label": "实际情况更像即兴写作",
+          "drawing": "用简笔画表现：实际情况更像即兴写作：模型根据已经看到的文字，计算下一段最可能怎样继续。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "它有规律",
+          "drawing": "用简笔画表现：它有规律，却不是每次都沿着唯一道路前进。",
+          "relationToNext": "出现转折"
+        },
+        {
+          "order": 4,
+          "label": "处理转折与约束",
+          "drawing": "用简笔画表现：理解抽卡、Context 窗口、API 和泛化，就是理解这种工作方式的四个侧面。"
+        }
+      ],
+      "conclusion": "理解抽卡、Context 窗口、API 和泛化，就是理解这种工作方式的四个侧面。"
+    },
+    {
+      "id": "bw-model-example-02",
+      "title": "客服案例的完整逻辑",
+      "paragraphIndexes": [
+        7
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "同一个客服问题偶尔答错",
+          "drawing": "用简笔画表现：例如同一个客服问题偶尔答错，不应立刻换模型。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：先检查相关制度是否进入 Context 窗口，再看 API 是否传丢字段，然后固定提示和随机参数，最后用一批没见过的问题测试泛化。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "按顺序排查",
+          "drawing": "用简笔画表现：按顺序排查，才能知道问题来自资料、连接、生成还是模型能力。"
+        }
+      ],
+      "conclusion": "按顺序排查，才能知道问题来自资料、连接、生成还是模型能力。"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "blackwords-overview",
+  "nodeTitle": "AI 黑话指南",
+  "pages": [
+    {
+      "id": "blackwords-overview-example-01",
+      "title": "AI 黑话指南案例的完整逻辑",
+      "paragraphIndexes": [
+        1
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "第一组词讲的是让 AI 动手做事",
+          "drawing": "用简笔画表现：第一组词讲的是让 AI 动手做事。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：Agent 可以理解成一个会自己规划步骤的办事员。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "你告诉它目标",
+          "drawing": "用简笔画表现：你告诉它目标，它会尝试、检查、修改，而不是每一步都等你下命令。",
+          "relationToNext": "对照后选择"
+        },
+        {
+          "order": 4,
+          "label": "处理转折与约束",
+          "drawing": "用简笔画表现：OpenClaw 更像住在电脑里的长期办事员，可以直接操作屏幕，也会逐渐记住你的习惯。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 5,
+          "label": "得出并验证结果",
+          "drawing": "用简笔画表现：Skills 是它随身携带的技能说明书，告诉它某类任务应该按什么步骤完成。MCP 则像统一插座，让 AI 用同一种方式连接文件、浏览器、数据库和其他工具。"
+        }
+      ],
+      "conclusion": "Skills 是它随身携带的技能说明书，告诉它某类任务应该按什么步骤完成。MCP 则像统一插座，让 AI 用同一种方式连接文件、浏览器、数据库和其他工具。"
+    }
+  ]
+}

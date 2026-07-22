@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-skills",
+  "nodeTitle": "Skills",
+  "pages": [
+    {
+      "id": "bw-skills-example-01",
+      "title": "Skills案例的完整逻辑",
+      "paragraphIndexes": [
+        1
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：一份好的 Skill 会说明什么时候使用、需要哪些输入、按什么顺序执行、哪些工具可以调用、完成后怎样检查，还会写清禁止事项。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：例如生成口播稿的 Skill 可以规定先理解资料、再列层级、按分钟检查长度、最后做口语化校对。"
+        }
+      ],
+      "conclusion": "例如生成口播稿的 Skill 可以规定先理解资料、再列层级、按分钟检查长度、最后做口语化校对。"
+    },
+    {
+      "id": "bw-skills-example-02",
+      "title": "Skills案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "制作五分钟口播稿的 Skill",
+          "drawing": "用简笔画表现：例如制作五分钟口播稿的 Skill，不只写生成一篇文章，而会规定目标字数范围、开场方式、生活类比、术语解释、结论和逐篇时长检查。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "模型生成以后还要运行验收",
+          "drawing": "用简笔画表现：模型生成以后还要运行验收，短了补充，长了压缩。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "这些步骤共同构成可复用能力",
+          "drawing": "用简笔画表现：这些步骤共同构成可复用能力。"
+        }
+      ],
+      "conclusion": "这些步骤共同构成可复用能力。"
+    }
+  ]
+}

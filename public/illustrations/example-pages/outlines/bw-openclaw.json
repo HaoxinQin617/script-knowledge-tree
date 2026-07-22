@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-openclaw",
+  "nodeTitle": "OpenClaw",
+  "pages": [
+    {
+      "id": "bw-openclaw-example-01",
+      "title": "OpenClaw案例的完整逻辑",
+      "paragraphIndexes": [
+        4
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：OpenClaw 可以理解成住在电脑里的 Agent，能直接操作真实环境，也更懂你的使用习惯",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "但它越接近真实账号和文件",
+          "drawing": "用简笔画表现：但它越接近真实账号和文件，就越需要明确权限、确认点和操作记录。"
+        }
+      ],
+      "conclusion": "但它越接近真实账号和文件，就越需要明确权限、确认点和操作记录。"
+    },
+    {
+      "id": "bw-openclaw-example-02",
+      "title": "OpenClaw案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "你让它把一批发票录入财务软件",
+          "drawing": "用简笔画表现：例如你让它把一批发票录入财务软件，它需要逐张识别金额、找到正确输入框、提交后确认页面是否成功。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "如果其中一张模糊",
+          "drawing": "用简笔画表现：如果其中一张模糊，它不应猜一个数字继续，而应把异常单独列出。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "电脑代理的价值",
+          "drawing": "用简笔画表现：电脑代理的价值，就体现在能识别这种真实环境里的分支。"
+        }
+      ],
+      "conclusion": "电脑代理的价值，就体现在能识别这种真实环境里的分支。"
+    }
+  ]
+}

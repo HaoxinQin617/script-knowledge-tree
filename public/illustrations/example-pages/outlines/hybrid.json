@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "hybrid",
+  "nodeTitle": "混合架构模式",
+  "pages": [
+    {
+      "id": "hybrid-example-01",
+      "title": "医院案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "一个 AI 产品做久了",
+          "drawing": "用简笔画表现：一个 AI 产品做久了，团队通常会发现：用户虽然都在同一个聊天框里输入内容，背后的任务却差得很远。",
+          "relationToNext": "出现转折"
+        },
+        {
+          "order": 2,
+          "label": "有人只想改顺一句话",
+          "drawing": "用简笔画表现：有人只想改顺一句话，有人上传一百页报告要求比较数据，还有人发来扫描图片。",
+          "relationToNext": "对照后选择"
+        },
+        {
+          "order": 3,
+          "label": "把这些请求全部交给同一个最贵模型",
+          "drawing": "用简笔画表现：把这些请求全部交给同一个最贵模型，就像医院不分病情，所有人都挂专家号。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 4,
+          "label": "能处理",
+          "drawing": "用简笔画表现：能处理，但等待和费用都会变得没有必要。"
+        }
+      ],
+      "conclusion": "能处理，但等待和费用都会变得没有必要。"
+    }
+  ]
+}

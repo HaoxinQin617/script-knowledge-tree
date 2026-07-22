@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "self-host",
+  "nodeTitle": "自己部署开源模型",
+  "pages": [
+    {
+      "id": "self-host-example-01",
+      "title": "厨房案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "自己部署开源模型",
+          "drawing": "用简笔画表现：自己部署开源模型，经常被一句话说得太简单：下载模型，放到服务器上，运行就行。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "真做起来",
+          "drawing": "用简笔画表现：真做起来，它更像开一间自己的厨房。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "模型文件只是买回来的炉灶",
+          "drawing": "用简笔画表现：模型文件只是买回来的炉灶，想让顾客稳定吃上饭，还需要电力、空间、厨师、接单系统、卫生检查和维修计划。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 4,
+          "label": "任何一项没有准备好",
+          "drawing": "用简笔画表现：任何一项没有准备好，演示时能回答的问题，到了真实用户手里就可能卡住。"
+        }
+      ],
+      "conclusion": "任何一项没有准备好，演示时能回答的问题，到了真实用户手里就可能卡住。"
+    }
+  ]
+}

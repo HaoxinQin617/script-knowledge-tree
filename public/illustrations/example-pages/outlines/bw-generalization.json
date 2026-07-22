@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-generalization",
+  "nodeTitle": "泛化",
+  "pages": [
+    {
+      "id": "bw-generalization-example-01",
+      "title": "泛化案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "模型看过很多标准简历",
+          "drawing": "用简笔画表现：例如模型看过很多标准简历，可能能整理新候选人的经历；但面对特殊科研岗位，它可能误解专业成果。",
+          "relationToNext": "出现转折"
+        },
+        {
+          "order": 2,
+          "label": "此时给出岗位标准、优秀样例和术语解释",
+          "drawing": "用简笔画表现：此时给出岗位标准、优秀样例和术语解释，会比单纯要求更聪明有效。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "额外上下文是在帮助泛化找到正确方向",
+          "drawing": "用简笔画表现：额外上下文是在帮助泛化找到正确方向。"
+        }
+      ],
+      "conclusion": "额外上下文是在帮助泛化找到正确方向。"
+    }
+  ]
+}

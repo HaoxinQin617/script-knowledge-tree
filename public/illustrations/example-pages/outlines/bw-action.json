@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-action",
+  "nodeTitle": "让 AI 动手做事",
+  "pages": [
+    {
+      "id": "bw-action-example-01",
+      "title": "会议案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "普通聊天模型更像坐在咨询台后面的人",
+          "drawing": "用简笔画表现：普通聊天模型更像坐在咨询台后面的人：你问一句，它答一句。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "行动型 AI 则更像接到任务的办事员",
+          "drawing": "用简笔画表现：行动型 AI 则更像接到任务的办事员。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "你说整理一份会议纪要",
+          "drawing": "用简笔画表现：你说整理一份会议纪要，它不只解释怎么整理，而是读取文件、识别重点、生成结构、检查格式，再把结果放到指定位置。",
+          "relationToNext": "导向结果"
+        },
+        {
+          "order": 4,
+          "label": "变化的核心不是模型突然有了手脚",
+          "drawing": "用简笔画表现：变化的核心不是模型突然有了手脚，而是系统为它增加了目标管理、工具调用和结果检查。"
+        }
+      ],
+      "conclusion": "变化的核心不是模型突然有了手脚，而是系统为它增加了目标管理、工具调用和结果检查。"
+    },
+    {
+      "id": "bw-action-example-02",
+      "title": "网页案例的完整逻辑",
+      "paragraphIndexes": [
+        3
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：Skills 可以理解成标准作业说明书。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "模型本身知道很多常识",
+          "drawing": "用简笔画表现：模型本身知道很多常识，但同一件事每次临场发挥，结果容易忽高忽低。",
+          "relationToNext": "导向结果"
+        },
+        {
+          "order": 3,
+          "label": "观察中间变化",
+          "drawing": "用简笔画表现：Skill 把稳定步骤、输入要求、检查标准和禁止事项写清楚。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 4,
+          "label": "写邮件、整理合同、生成网页或检查数据",
+          "drawing": "用简笔画表现：写邮件、整理合同、生成网页或检查数据，都可以有各自的 Skill。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 5,
+          "label": "它不是给 AI 增加神秘能力",
+          "drawing": "用简笔画表现：它不是给 AI 增加神秘能力，而是减少它在熟悉任务上的随意发挥。"
+        }
+      ],
+      "conclusion": "它不是给 AI 增加神秘能力，而是减少它在熟悉任务上的随意发挥。"
+    },
+    {
+      "id": "bw-action-example-03",
+      "title": "销售案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "把四个词放在一起就很清楚了",
+          "drawing": "用简笔画表现：把四个词放在一起就很清楚了：Agent 负责决定下一步，OpenClaw 代表它可以长期驻留并操作电脑，Skills 提供稳定的方法，MCP 把外部工具接进来。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "一个真实任务通常同时需要它们",
+          "drawing": "用简笔画表现：一个真实任务通常同时需要它们。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "整理销售数据时",
+          "drawing": "用简笔画表现：例如整理销售数据时，Agent 规划步骤，Skill 规定表格检查方法，通过 MCP 读取文件和写回结果，电脑代理负责在实际应用里完成操作。"
+        }
+      ],
+      "conclusion": "例如整理销售数据时，Agent 规划步骤，Skill 规定表格检查方法，通过 MCP 读取文件和写回结果，电脑代理负责在实际应用里完成操作。"
+    }
+  ]
+}

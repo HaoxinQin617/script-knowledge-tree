@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "ScriptNode.body",
+  "sourceNodeCount": 40,
+  "nodeCount": 21,
+  "totalPages": 28,
+  "exampleParagraphs": 31,
+  "panelDistribution": {
+    "2": 4,
+    "3": 13,
+    "4": 5,
+    "5": 6
+  },
+  "nodes": [
+    {
+      "nodeId": "overview",
+      "nodeTitle": "AI 接入的三种方式",
+      "level": 1,
+      "pageCount": 1,
+      "pages": [
+        "overview-example-01"
+      ],
+      "outline": "./outlines/overview.json"
+    },
+    {
+      "nodeId": "api",
+      "nodeTitle": "直接调用商业模型 API",
+      "level": 2,
+      "pageCount": 2,
+      "pages": [
+        "api-example-01",
+        "api-example-02"
+      ],
+      "outline": "./outlines/api.json"
+    },
+    {
+      "nodeId": "self-host",
+      "nodeTitle": "自己部署开源模型",
+      "level": 2,
+      "pageCount": 1,
+      "pages": [
+        "self-host-example-01"
+      ],
+      "outline": "./outlines/self-host.json"
+    },
+    {
+      "nodeId": "hybrid",
+      "nodeTitle": "混合架构模式",
+      "level": 2,
+      "pageCount": 1,
+      "pages": [
+        "hybrid-example-01"
+      ],
+      "outline": "./outlines/hybrid.json"
+    },
+    {
+      "nodeId": "api-term",
+      "nodeTitle": "API",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "api-term-example-01"
+      ],
+      "outline": "./outlines/api-term.json"
+    },
+    {
+      "nodeId": "gpu",
+      "nodeTitle": "GPU",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "gpu-example-01"
+      ],
+      "outline": "./outlines/gpu.json"
+    },
+    {
+      "nodeId": "blackwords-overview",
+      "nodeTitle": "AI 黑话指南",
+      "level": 1,
+      "pageCount": 1,
+      "pages": [
+        "blackwords-overview-example-01"
+      ],
+      "outline": "./outlines/blackwords-overview.json"
+    },
+    {
+      "nodeId": "bw-action",
+      "nodeTitle": "让 AI 动手做事",
+      "level": 2,
+      "pageCount": 3,
+      "pages": [
+        "bw-action-example-01",
+        "bw-action-example-02",
+        "bw-action-example-03"
+      ],
+      "outline": "./outlines/bw-action.json"
+    },
+    {
+      "nodeId": "bw-model",
+      "nodeTitle": "理解模型怎么工作",
+      "level": 2,
+      "pageCount": 2,
+      "pages": [
+        "bw-model-example-01",
+        "bw-model-example-02"
+      ],
+      "outline": "./outlines/bw-model.json"
+    },
+    {
+      "nodeId": "bw-agent",
+      "nodeTitle": "Agent",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "bw-agent-example-01"
+      ],
+      "outline": "./outlines/bw-agent.json"
+    },
+    {
+      "nodeId": "bw-openclaw",
+      "nodeTitle": "OpenClaw",
+      "level": 3,
+      "pageCount": 2,
+      "pages": [
+        "bw-openclaw-example-01",
+        "bw-openclaw-example-02"
+      ],
+      "outline": "./outlines/bw-openclaw.json"
+    },
+    {
+      "nodeId": "bw-skills",
+      "nodeTitle": "Skills",
+      "level": 3,
+      "pageCount": 2,
+      "pages": [
+        "bw-skills-example-01",
+        "bw-skills-example-02"
+      ],
+      "outline": "./outlines/bw-skills.json"
+    },
+    {
+      "nodeId": "bw-gacha",
+      "nodeTitle": "抽卡",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "bw-gacha-example-01"
+      ],
+      "outline": "./outlines/bw-gacha.json"
+    },
+    {
+      "nodeId": "bw-context",
+      "nodeTitle": "Context 窗口",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "bw-context-example-01"
+      ],
+      "outline": "./outlines/bw-context.json"
+    },
+    {
+      "nodeId": "bw-generalization",
+      "nodeTitle": "泛化",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "bw-generalization-example-01"
+      ],
+      "outline": "./outlines/bw-generalization.json"
+    },
+    {
+      "nodeId": "bw-multimodal",
+      "nodeTitle": "多模态",
+      "level": 3,
+      "pageCount": 2,
+      "pages": [
+        "bw-multimodal-example-01",
+        "bw-multimodal-example-02"
+      ],
+      "outline": "./outlines/bw-multimodal.json"
+    },
+    {
+      "nodeId": "bw-rag",
+      "nodeTitle": "RAG",
+      "level": 3,
+      "pageCount": 1,
+      "pages": [
+        "bw-rag-example-01"
+      ],
+      "outline": "./outlines/bw-rag.json"
+    },
+    {
+      "nodeId": "figma-overview",
+      "nodeTitle": "Figma 到底是什么",
+      "level": 1,
+      "pageCount": 1,
+      "pages": [
+        "figma-overview-example-01"
+      ],
+      "outline": "./outlines/figma-overview.json"
+    },
+    {
+      "nodeId": "canva-overview",
+      "nodeTitle": "Canva 到底是什么",
+      "level": 1,
+      "pageCount": 1,
+      "pages": [
+        "canva-overview-example-01"
+      ],
+      "outline": "./outlines/canva-overview.json"
+    },
+    {
+      "nodeId": "chunk-explained",
+      "nodeTitle": "Chunk 与重叠",
+      "level": 2,
+      "pageCount": 1,
+      "pages": [
+        "chunk-explained-example-01"
+      ],
+      "outline": "./outlines/chunk-explained.json"
+    },
+    {
+      "nodeId": "rerank-explained",
+      "nodeTitle": "Rerank：给候选结果重排",
+      "level": 2,
+      "pageCount": 1,
+      "pages": [
+        "rerank-explained-example-01"
+      ],
+      "outline": "./outlines/rerank-explained.json"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-agent",
+  "nodeTitle": "Agent",
+  "pages": [
+    {
+      "id": "bw-agent-example-01",
+      "title": "网页案例的完整逻辑",
+      "paragraphIndexes": [
+        0
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "大家常说某个产品加入了 Agent",
+          "drawing": "用简笔画表现：大家常说某个产品加入了 Agent，意思通常不是多了一个聊天头像，而是 AI 开始围绕目标连续行动。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "普通聊天是一问一答",
+          "drawing": "用简笔画表现：普通聊天是一问一答，Agent 接到的更像任务：整理文件、比较方案、预约行程或检查网页。",
+          "relationToNext": "对照后选择"
+        },
+        {
+          "order": 3,
+          "label": "观察中间变化",
+          "drawing": "用简笔画表现：它需要判断先做什么、缺什么信息、什么时候完成。"
+        }
+      ],
+      "conclusion": "它需要判断先做什么、缺什么信息、什么时候完成。"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "figma-overview",
+  "nodeTitle": "Figma 到底是什么",
+  "pages": [
+    {
+      "id": "figma-overview-example-01",
+      "title": "餐厅案例的完整逻辑",
+      "paragraphIndexes": [
+        1,
+        2
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "以餐厅预约 App 为例",
+          "drawing": "用简笔画表现：以餐厅预约 App 为例。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：首页、餐厅列表、预约确认页都可以先在 Figma 里画出来。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "团队不必先写代码",
+          "drawing": "用简笔画表现：团队不必先写代码，就能看到完整界面，发现文字太挤、按钮不明显或流程绕远等问题。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 4,
+          "label": "Frame 是一块页面画布",
+          "drawing": "用简笔画表现：Frame 是一块页面画布，Component 是可以反复使用的零件。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 5,
+          "label": "导航栏、按钮和餐厅卡片做成组件后",
+          "drawing": "用简笔画表现：导航栏、按钮和餐厅卡片做成组件后，修改一次就能同步到所有相关页面。这让几十个页面仍然保持相同的颜色、字号和间距。"
+        }
+      ],
+      "conclusion": "导航栏、按钮和餐厅卡片做成组件后，修改一次就能同步到所有相关页面。这让几十个页面仍然保持相同的颜色、字号和间距。"
+    }
+  ]
+}

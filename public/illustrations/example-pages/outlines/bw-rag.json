@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-rag",
+  "nodeTitle": "RAG",
+  "pages": [
+    {
+      "id": "bw-rag-example-01",
+      "title": "RAG案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "员工问差旅报销期限",
+          "drawing": "用简笔画表现：例如员工问差旅报销期限，资料里写的是费用发生后三十天内提交。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "用户可能问最晚什么时候交票",
+          "drawing": "用简笔画表现：用户可能问最晚什么时候交票，关键词并不相同。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "好的检索要按含义找到同一段",
+          "drawing": "用简笔画表现：好的检索要按含义找到同一段，再让模型把规定换成自然回答，同时附上制度名称和页码。"
+        }
+      ],
+      "conclusion": "好的检索要按含义找到同一段，再让模型把规定换成自然回答，同时附上制度名称和页码。"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "rerank-explained",
+  "nodeTitle": "Rerank：给候选结果重排",
+  "pages": [
+    {
+      "id": "rerank-explained-example-01",
+      "title": "论文案例的完整逻辑",
+      "paragraphIndexes": [
+        1
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：例如问题询问某篇论文为什么选择 Transformer。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "检索可能相关的证据",
+          "drawing": "用简笔画表现：初次检索可能同时找出发展历史、实验结果和其他模型介绍。",
+          "relationToNext": "导向结果"
+        },
+        {
+          "order": 3,
+          "label": "它们都有相同词汇",
+          "drawing": "用简笔画表现：它们都有相同词汇，却不一定直接回答原因。"
+        }
+      ],
+      "conclusion": "它们都有相同词汇，却不一定直接回答原因。"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "bw-multimodal",
+  "nodeTitle": "多模态",
+  "pages": [
+    {
+      "id": "bw-multimodal-example-01",
+      "title": "会议案例的完整逻辑",
+      "paragraphIndexes": [
+        1
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：可以把它想成一个同时拥有眼睛、耳朵和语言能力的助手。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "执行关键动作",
+          "drawing": "用简笔画表现：它能看发票照片、听会议录音、读屏幕截图，也能把一种形式转成另一种，例如根据图片写说明。"
+        }
+      ],
+      "conclusion": "它能看发票照片、听会议录音、读屏幕截图，也能把一种形式转成另一种，例如根据图片写说明。"
+    },
+    {
+      "id": "bw-multimodal-example-02",
+      "title": "餐厅案例的完整逻辑",
+      "paragraphIndexes": [
+        5
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "用户上传一张菜单照片并问哪些菜含花生",
+          "drawing": "用简笔画表现：例如用户上传一张菜单照片并问哪些菜含花生，系统既要识别菜名，也要理解过敏问题，还可能结合餐厅说明。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "仅仅看见图片不够",
+          "drawing": "用简笔画表现：仅仅看见图片不够，模型需要把视觉内容和语言目标对应起来。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 3,
+          "label": "小字看不清时",
+          "drawing": "用简笔画表现：小字看不清时，应提示用户补拍，而不是猜测。"
+        }
+      ],
+      "conclusion": "小字看不清时，应提示用户补拍，而不是猜测。"
+    }
+  ]
+}

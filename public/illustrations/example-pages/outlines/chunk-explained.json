@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "nodeId": "chunk-explained",
+  "nodeTitle": "Chunk 与重叠",
+  "pages": [
+    {
+      "id": "chunk-explained-example-01",
+      "title": "Chunk 与重叠案例的完整逻辑",
+      "paragraphIndexes": [
+        3
+      ],
+      "panels": [
+        {
+          "order": 1,
+          "label": "建立场景起点",
+          "drawing": "用简笔画表现：Chunk overlap 是相邻片段保留一小段重复内容。",
+          "relationToNext": "继续下一步"
+        },
+        {
+          "order": 2,
+          "label": "第一片包含第 1 到 5 段",
+          "drawing": "用简笔画表现：例如第一片包含第 1 到 5 段，第二片从第 5 段开始，这样跨边界的一句话不会被彻底拆散。"
+        }
+      ],
+      "conclusion": "例如第一片包含第 1 到 5 段，第二片从第 5 段开始，这样跨边界的一句话不会被彻底拆散。"
+    }
+  ]
+}
